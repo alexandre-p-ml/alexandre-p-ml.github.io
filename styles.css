@@ -1,0 +1,45 @@
+/* Petites retouches discrètes */
+
+.navbar-title {
+  font-weight: 600;
+}
+
+/* Boutons de téléchargement */
+.download-btn {
+  display: inline-block;
+  padding: 0.4em 0.9em;
+  margin: 0.2em 0.3em 0.2em 0;
+  background: #2c3e50;
+  color: white !important;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+.download-btn:hover {
+  background: #1a252f;
+}
+.download-btn.alt {
+  background: #6c757d;
+}
+
+/* Photo de la page d'accueil (bloc "about") */
+img.about-image {
+  border: 2px solid #000000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Carte projet sur la home */
+.project-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 1em 1.2em;
+  margin-bottom: 1em;
+}
+.project-card h3 {
+  margin-top: 0;
+}
+.project-card .tags {
+  font-size: 0.85em;
+  color: #6c757d;
+  margin-bottom: 0.4em;
+}

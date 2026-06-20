@@ -1,0 +1,121 @@
+[
+  {
+    "objectID": "projets/raidium.html",
+    "href": "projets/raidium.html",
+    "title": "Segmentation abdominale CT — Challenge Raidium",
+    "section": "",
+    "text": "📓 Notebook"
+  },
+  {
+    "objectID": "projets/raidium.html#lien-github",
+    "href": "projets/raidium.html#lien-github",
+    "title": "Segmentation abdominale CT — Challenge Raidium",
+    "section": "",
+    "text": "📓 Notebook"
+  },
+  {
+    "objectID": "projets/raidium.html#description",
+    "href": "projets/raidium.html#description",
+    "title": "Segmentation abdominale CT — Challenge Raidium",
+    "section": "Description",
+    "text": "Description\nChallenge ENS Raidium : segmentation sémantique de coupes CT abdominales 256×256, à 55 classes (1 fond + 54 organes et structures anatomiques). La difficulté centrale n’est pas l’architecture mais la nature des annotations.\n\n2000 images d’entraînement, dont seulement 800 annotées et 1200 sans rien.\nAnnotations partielles : pour chaque image, seul un sous-ensemble de classes est certifié. Les autres ne sont ni positives ni négatives, elles doivent être ignorées dans la perte.\n≈90 % des pixels appartiennent au fond et plusieurs classes n’apparaissent que dans dix images ou moins.\n500 images de test évaluées par une Dice macro sur la plateforme.\n\n\n\n\nExemples de prédictions. 1ère colonne : entrée, 2e colonne : ground truth, 3e colonne : prédiction du modèle)"
+  },
+  {
+    "objectID": "projets/raidium.html#stratégie-résultats",
+    "href": "projets/raidium.html#stratégie-résultats",
+    "title": "Segmentation abdominale CT — Challenge Raidium",
+    "section": "Stratégie & Résultats",
+    "text": "Stratégie & Résultats\nL’approche a consisté à empiler des techniques modestes mais bien ciblées, en diagnostiquant systématiquement avant d’agir. Score plateforme à chaque étape retenue :\n\n\n\n\n\n\n\n\n\nÉtape\nMéthode\nPlateforme\nGain\n\n\n\n\nBaseline\nU-Net ResNet-18, entropie croisée\n0,022\n—\n\n\nLoss masquée\n+ Dice composé + pondération classes\n0,169\n×7,7\n\n\nConsolidation\n+ augmentations + Dice corrigé + 60 epochs\n0,270\n+0,101\n\n\nSemi-supervisé\n+ Mean Teacher (1200 non annotées)\n0,329\n+0,059\n\n\nLatent\n+ SupCon contrastive\n0,385\n+0,056\n\n\nInférence\n+ TTA (augmentation au test)\n0,4005\n+0,016\n\n\nCiblage\n+ pondération par classe\n0,4023\n+0,002\n\n\n\nLa loss masquée : en n’appliquant la perte qu’aux classes certifiées (logits des autres forcés à -\\infty avant softmax), le score saute de 0,022 à 0,169.\nExploiter les 1200 images non annotées — Mean Teacher. Un schéma semi-supervisé (réseau élève + enseignant en moyenne mobile exponentielle, perte de cohérence sur les images sans label) porte le score à 0,329.\nDiagnostiquer l’espace latent — SupCon. Une ACP de l’avant-dernière couche (score de silhouette ≈ 0,37) a montré que les classes ratées se concentraient au centre dense de la projection. Deux régularisations envisagées : SIGReg (issue du framework LeJEPA) et une perte contrastive supervisée (SupCon). Le diagnostic a fait pencher pour SupCon car plus directe pour écarter les amas. Score porté à 0,385. Un fait surprenant : la silhouette a baissé (0,37 → 0,25) pendant que le Dice montait, naïvemen je n’avaist pas prévu cette évolution entre les métriques.\nGain quasi gratuit — TTA. Prédiction de chaque image et de ses trois retournements, dé-augmentation exacte (involutive), moyennage des softmax : 0,4005 sans réentraînement.\nPlafond - ≈ 0,67 en validation locale pour 0,40 plateforme. En fait la plateforme évalue un Dice macro global non masqué : chaque classe pèse identiquement (1/54 \\approx 0,019), une classe à zéro coûte mécaniquement ce montant quelle que soit sa rareté. La métrique locale masquée surestimait d’un facteur ≈ 1,8 et j’optimisais en partie la mauvaise grandeur.\nPiste tentée - L’étape suivante visait nnU-Net v2, référence de la segmentation médicale en préparation de DinoUNet (fondé sur DINOv3).\n\nLecture statistique par classe\n\n\n\nAtlas des 54 classes avec Dice moyen. La forte corrélation taille ↔︎ Dice est visible à l’œil nu : les grosses structures (foie, cl 6 à 0,96) sont bien segmentées, les fines (cl 1, 2, 15…) restent à zéro.\n\n\nLes chiffres extraits éclairent précisément le plafond :\n\nDice moyen par classe ≈ 0,43 (médiane 0,47, écart-type 0,28) — très proche du score plateforme, cohérent avec un macro-average par classe.\n6 classes à Dice exactement nul (cl 1, 2, 15, 25, 26, 40) et 9 autres sous 0,10. Ces 15 classes retranchent à elles seules 0,15 à 0,20 au macro-average.\n11 classes excellentes (Dice ≥ 0,70), jusqu’à 0,96 pour la mieux segmentée.\nCorrélation taille/Dice de Pearson ≈ 0,64. Les 5 plus grosses structures atteignent un Dice moyen de 0,85, les 5 plus petites seulement 0,11."
+  },
+  {
+    "objectID": "projets/raidium.html#echecs",
+    "href": "projets/raidium.html#echecs",
+    "title": "Segmentation abdominale CT — Challenge Raidium",
+    "section": "Echecs",
+    "text": "Echecs\n\n\n\n\n\n\nWarningDINOv2 gelé (ViT-S/14) → échec\n\n\n\nExploiter un Vision Transformer auto-supervisé sur 142 M d’images semblait prometteur. Résultat : plafond à ≈ 0,40 en validation locale, contre 0,67 pour le pipeline ResNet-18 sur la même validation. Trois causes probables :\n\nDécalage de domaine majeur : DINOv2 est entraîné sur des photos naturelles, sans rapport avec les coupes scanner en niveaux de gris.\nBackbone gelé : 21 M de paramètres non adaptables donc le décodeur seul ne peut pas combler l’écart.\nRésolution grossière (grille 18×18 patches) inadaptée aux contours fins d’organes et absence du biais inductif local des convolutions.\n\n\n\n\n\n\n\n\n\nWarningMiT-B2 / SegFormer dégelé → échec\n\n\n\nEncodeur hybride convolution-transformer, multi-échelle, cette fois dégelé. Plafond à ≈ 0,495 local, encore loin des 0,672 du ResNet-18. Les Transformers sont plus dépendants du volume de pré-entraînement que les CNN et le décalage ImageNet → CT médical n’est pas rattrapable sur seulement 800 images. La capacité supplémentaire (≈ 30 M de paramètres) s’est retournée en désavantage faute de données.\n\n\n\n\n\n\n\n\nWarningnnU-Net en local → bloqué par le matériel\n\n\n\nSur une RTX 3050 6 Go. La préparation a réussi (conversion, manifeste, split imposé comme premier fold), mais l’entraînement me prenait près d’1 heure par epoch. nnU-Net auto-configure son budget mémoire au-delà de 6 Go. DinoUNet repose sur la même infrastructure.\n\n\n\nRemarques\nLe point le plus important : les classes à très faible présence sont restées à Dice nul malgré une pondération forte. La pondération inversement proportionnelle au Dice par classe a bien amélioré 9 des 12 classes ciblées (l’une est passée de 0,30 à 0,56), mais le gain plateforme global est resté faible (+0,0018) — sur 54 classes, chaque amélioration ne pèse que 1,85 %, et on ne peut pas créer un signal qui n’existe pas avec quelques images d’entraînement seulement."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Alexandre Pottecher",
+    "section": "",
+    "text": "Étudiant ingénieur M1 Math-Info. Je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
+  },
+  {
+    "objectID": "index.html#à-propos",
+    "href": "index.html#à-propos",
+    "title": "Alexandre Pottecher",
+    "section": "",
+    "text": "Étudiant ingénieur M1 Math-Info. Je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
+  },
+  {
+    "objectID": "index.html#projets",
+    "href": "index.html#projets",
+    "title": "Alexandre Pottecher",
+    "section": "Projets",
+    "text": "Projets\n\n3D Gaussian Splatting — backpropagation rigoureuse\n\nLaTeX · différentielle de Fréchet · VJP/adjoint · DAG · imagerie médicale\n\nDocument mathématique formalisant la rétropropagation dans 3DGS : différentielles de Fréchet, formulation VJP, gradients des quaternions, alpha compositing, contrôle adaptatif de densité. Extension à un modèle simplifié d’imagerie ultrasonore.\n\n\nDirichlet Prior Networks — reproduction Malinin & Gales\n\nPyTorch · CIFAR-10 · KL inverse · décomposition d’incertitude\n\ntest\n\n\nSegmentation abdominale CT — Challenge Raidium\n\nU-Net · DINOv2 · MiT-B2 · TTA · 55 classes\n\n12 semaines de challenge ENS. Analyse de ma stratégie, des résultats et des échecs.\n\n\nPrédiction du score UPDRS — Challenge Parkinson\n\nLightGBM · XGBoost · CatBoost · stacking Ridge\n\nPipeline ML pour la prédiction du score moteur Parkinson. Modèle auxiliaire d’imputation, correction pharmacocinétique, ensemble multi-modèles avec GroupKFold."
+  },
+  {
+    "objectID": "projets/3dgs.html",
+    "href": "projets/3dgs.html",
+    "title": "Mathématiques dans le 3D Gaussian Splatting",
+    "section": "",
+    "text": "Ce document propose une dérivation rigoureuse de la rétropropagation dans 3D Gaussian Splatting (3DGS). Je distingue explicitement les cotangentes propagées sur le DAG de calcul de la loss finale et formalise chaque opération."
+  },
+  {
+    "objectID": "projets/3dgs.html#résumé",
+    "href": "projets/3dgs.html#résumé",
+    "title": "Mathématiques dans le 3D Gaussian Splatting",
+    "section": "",
+    "text": "Ce document propose une dérivation rigoureuse de la rétropropagation dans 3D Gaussian Splatting (3DGS). Je distingue explicitement les cotangentes propagées sur le DAG de calcul de la loss finale et formalise chaque opération."
+  },
+  {
+    "objectID": "projets/3dgs.html#téléchargements",
+    "href": "projets/3dgs.html#téléchargements",
+    "title": "Mathématiques dans le 3D Gaussian Splatting",
+    "section": "Téléchargements",
+    "text": "Téléchargements\n📄 Télécharger le PDF"
+  },
+  {
+    "objectID": "projets/3dgs.html#aperçu",
+    "href": "projets/3dgs.html#aperçu",
+    "title": "Mathématiques dans le 3D Gaussian Splatting",
+    "section": "Aperçu",
+    "text": "Aperçu"
+  },
+  {
+    "objectID": "projets/3dgs.html#contenu-mathématique-abordé",
+    "href": "projets/3dgs.html#contenu-mathématique-abordé",
+    "title": "Mathématiques dans le 3D Gaussian Splatting",
+    "section": "Contenu mathématique abordé",
+    "text": "Contenu mathématique abordé\n\nCadre fonctionnel. Variétés de Gaussiennes 3D paramétrées par (\\mu, q, s, \\alpha, c) où q \\in \\mathbb{H} est un quaternion unitaire.\nDifférentielles de Fréchet des opérations clés : projection perspective, conversion quaternion → matrice de rotation, construction de la covariance \\Sigma = R S S^\\top R^\\top.\nAdjoints / VJP. Pour chaque opération f : E \\to F, calcul de f'(x)^* : F^* \\to E^* permettant la propagation des cotangentes en arrière sur le DAG.\nAlpha compositing. Adjoint de la composition récursive C = \\sum_i c_i \\alpha_i T_i avec T_i = \\prod_{j&lt;i}(1-\\alpha_j).\nContrôle adaptatif de densité. Critères de split/clone et leur cohérence avec les gradients accumulés.\nExtension imagerie médicale. Modèle simplifié d’acquisition ultrasonore."
+  },
+  {
+    "objectID": "projets/prior-networks.html",
+    "href": "projets/prior-networks.html",
+    "title": "Mathématiques dans les Prior Networks",
+    "section": "",
+    "text": "Réimplémentation de Reverse KL-divergence Training of Prior Networks for Adversarial Robustness (Malinin & Gales, NeurIPS 2019). Un Prior Network paramétrise une distribution de Dirichlet sur le simplexe des probabilités de classe, permettant de décomposer l’incertitude en composantes données (aleatoric), connaissances (epistemic) et distributionnelle."
+  },
+  {
+    "objectID": "projets/prior-networks.html#résumé",
+    "href": "projets/prior-networks.html#résumé",
+    "title": "Mathématiques dans les Prior Networks",
+    "section": "",
+    "text": "Réimplémentation de Reverse KL-divergence Training of Prior Networks for Adversarial Robustness (Malinin & Gales, NeurIPS 2019). Un Prior Network paramétrise une distribution de Dirichlet sur le simplexe des probabilités de classe, permettant de décomposer l’incertitude en composantes données (aleatoric), connaissances (epistemic) et distributionnelle."
+  },
+  {
+    "objectID": "projets/prior-networks.html#téléchargements",
+    "href": "projets/prior-networks.html#téléchargements",
+    "title": "Mathématiques dans les Prior Networks",
+    "section": "Téléchargements",
+    "text": "Téléchargements\n📄 Télécharger le PDF"
+  },
+  {
+    "objectID": "projets/prior-networks.html#aperçu",
+    "href": "projets/prior-networks.html#aperçu",
+    "title": "Mathématiques dans les Prior Networks",
+    "section": "Aperçu",
+    "text": "Aperçu"
+  }
+]
