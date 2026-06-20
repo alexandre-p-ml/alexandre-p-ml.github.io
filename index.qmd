@@ -1,0 +1,60 @@
+---
+title: "Alexandre Pottecher"
+subtitle: "Computer vision, deep learning, mathématiques appliquées"
+about:
+  template: trestles
+  image: img/photo_t.png
+  image-shape: rectangle
+  image-width: 12em
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/alexandre-p-ml
+    - icon: envelope
+      text: Contact
+      href: mailto:alexandre.ptch@gmail.com
+---
+
+## À propos
+
+Étudiant ingénieur M1 Math-Info.  Je m'interesse à la vision par ordinateur appliquée à l'imagerie médicale, au deep
+learning probabiliste et génératif, et a la formalisation mathématique d'algorithmes de Machine Learning.
+
+Cette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF).
+
+---
+
+## Projets
+
+::: {.project-card}
+### [3D Gaussian Splatting — backpropagation rigoureuse](projets/3dgs.qmd)
+<div class="tags">LaTeX · différentielle de Fréchet · VJP/adjoint · DAG · imagerie médicale</div>
+
+Document mathématique formalisant la rétropropagation dans 3DGS : différentielles
+de Fréchet, formulation VJP, gradients des quaternions, alpha compositing,
+contrôle adaptatif de densité. Extension à un modèle simplifié d'imagerie
+ultrasonore.
+:::
+
+::: {.project-card}
+### [Dirichlet Prior Networks — reproduction Malinin & Gales](projets/prior-networks.qmd)
+<div class="tags">PyTorch · CIFAR-10 · KL inverse · décomposition d'incertitude</div>
+
+test
+:::
+
+::: {.project-card}
+### [Segmentation abdominale CT — Challenge Raidium](projets/raidium.qmd)
+<div class="tags">U-Net · DINOv2 · MiT-B2 · TTA · 55 classes</div>
+
+12 semaines de challenge ENS. Analyse de ma stratégie, des résultats et des échecs.
+:::
+
+::: {.project-card}
+### [Prédiction du score UPDRS — Challenge Parkinson](projets/parkinson.qmd)
+<div class="tags">LightGBM · XGBoost · CatBoost · stacking Ridge</div>
+
+Pipeline ML pour la prédiction du score moteur Parkinson.
+Modèle auxiliaire d'imputation, correction pharmacocinétique, ensemble
+multi-modèles avec GroupKFold.
+:::

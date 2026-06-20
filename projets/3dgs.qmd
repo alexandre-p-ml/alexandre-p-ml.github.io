@@ -1,0 +1,41 @@
+---
+title: "Mathématiques dans le 3D Gaussian Splatting"
+subtitle: "Formalisation mathématique de la rétropropagation"
+date: "Juin 2026"
+categories: []
+---
+
+## Résumé
+
+Ce document propose une dérivation rigoureuse de la rétropropagation dans
+3D Gaussian Splatting (3DGS). Je distingue explicitement les
+cotangentes propagées sur le DAG de calcul de la loss finale et formalise
+chaque opération.
+
+
+## Téléchargements
+
+<a class="download-btn" href="../files/synthese_math_3DGS.pdf" download>📄 Télécharger le PDF</a>
+
+## Aperçu
+
+<embed src="../files/synthese_math_3DGS.pdf" type="application/pdf" width="100%" height="600px" />
+
+## Contenu mathématique abordé
+
+- Cadre fonctionnel. Variétés de Gaussiennes 3D paramétrées par
+  $(\mu, q, s, \alpha, c)$ où $q \in \mathbb{H}$ est un quaternion unitaire.
+- Différentielles de Fréchet des opérations clés : projection perspective,
+  conversion quaternion → matrice de rotation, construction de la covariance
+  $\Sigma = R S S^\top R^\top$.
+- Adjoints / VJP. Pour chaque opération $f : E \to F$, calcul de
+  $f'(x)^* : F^* \to E^*$ permettant la propagation des cotangentes en arrière
+  sur le DAG.
+- Alpha compositing. Adjoint de la composition récursive
+  $C = \sum_i c_i \alpha_i T_i$ avec $T_i = \prod_{j<i}(1-\alpha_j)$.
+- Contrôle adaptatif de densité. Critères de split/clone et leur cohérence
+  avec les gradients accumulés.
+- Extension imagerie médicale. Modèle simplifié d'acquisition ultrasonore.
+
+
+

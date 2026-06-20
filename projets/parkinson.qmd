@@ -1,0 +1,49 @@
+---
+title: "Prédiction du score UPDRS — Challenge Parkinson"
+subtitle: "Pipeline ML tabulaire, GroupKFold, stacking"
+date: "Mai 2026"
+categories: [machine learning, données tabulaires, santé]
+---
+
+## Résumé
+
+Data challenge ENS sur la prédiction du score moteur UPDRS chez des patients
+parkinsoniens. Pipeline itéré de **RMSE 11 → 8.9**, organisé autour d'un
+ensemble multi-modèles (LightGBM + XGBoost + CatBoost) et d'une régression
+ridge en méta-modèle.
+
+## Téléchargements
+
+<a class="download-btn" href="../files/parkinson-pipeline.ipynb" download>📓 Notebook complet</a>
+
+## Contributions principales
+
+1. **Modèle auxiliaire d'imputation off-medication.** Un LightGBM séparé prédit
+   les scores manquants en condition OFF à partir des autres features ; ses
+   prédictions sont injectées comme features dans le modèle principal.
+2. **Agrégats globaux par patient.** Moyennes, variances et tendances
+   temporelles calculées sur la trajectoire complète de chaque patient
+   (et non sur la seule observation courante).
+3. **Correction pharmacocinétique des scores ON.** Modélisation simple de
+   la demi-vie de la levodopa pour ajuster le temps écoulé depuis la
+   dernière prise.
+4. **Validation par GroupKFold patient.** Aucun patient ne se retrouve
+   simultanément en train et en validation, évitant la fuite par identité.
+
+## Stacking
+
+$$
+\hat{y}_{\text{final}} = \mathrm{Ridge}\big(
+\hat{y}_{\text{LGBM}}, \hat{y}_{\text{XGB}}, \hat{y}_{\text{Cat}}, \boldsymbol{x}_{\text{meta}}
+\big)
+$$
+
+où $\boldsymbol{x}_{\text{meta}}$ contient les agrégats patient et l'écart à la
+moyenne population.
+
+::: {.callout-note}
+## Inférence autorégressive : abandonnée
+J'ai testé une inférence autorégressive (le score prédit à $t$ devient feature
+à $t+1$), théoriquement séduisante mais empiriquement contre-productive :
+**accumulation des erreurs** sur les longues séquences, RMSE dégradée de ~0.3.
+:::

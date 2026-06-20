@@ -1,0 +1,24 @@
+---
+title: "Mathématiques dans les Prior Networks"
+subtitle: "Preuve de Malinin & Gales (NeurIPS 2019)"
+date: "Mai 2026"
+categories: []
+---
+
+## Résumé
+
+Réimplémentation de *Reverse KL-divergence Training of Prior Networks for
+Adversarial Robustness* (Malinin & Gales, NeurIPS 2019). Un Prior Network
+paramétrise une distribution de Dirichlet sur le simplexe des probabilités
+de classe, permettant de décomposer l'incertitude en composantes
+*données* (aleatoric), *connaissances* (epistemic) et *distributionnelle*.
+
+## Téléchargements
+
+<a class="download-btn" href="../files/synthese_math_DPN.pdf" download>📄 Télécharger le PDF</a>
+
+## Aperçu
+
+<embed src="../files/synthese_math_DPN.pdf" type="application/pdf" width="100%" height="600px" />
+
+

@@ -1,0 +1,42 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Alexandre Pottecher"
+  description: "Projets et travaux de recherche"
+  navbar:
+    background: light
+    left:
+      - href: index.qmd
+        text: Accueil
+      - text: Projets
+        menu:
+          - href: projets/3dgs.qmd
+            text: "3D Gaussian Splatting — backpropagation"
+          - href: projets/prior-networks.qmd
+            text: "Dirichlet Prior Networks"
+          - href: projets/raidium.qmd
+            text: "Segmentation CT (Raidium)"
+          - href: projets/parkinson.qmd
+            text: "Prédiction UPDRS (Parkinson)"
+    right:
+      - icon: github
+        href: https://github.com/ton-username
+        aria-label: GitHub
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    code-tools: true        # bouton "view source / download" en haut des notebooks
+    code-fold: false
+    code-copy: true
+    fig-align: center
+    html-math-method: katex
+    link-external-newwindow: true
+
+execute:
+  freeze: auto              # ne ré-exécute pas les notebooks à chaque render
