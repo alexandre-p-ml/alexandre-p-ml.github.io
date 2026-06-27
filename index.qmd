@@ -17,7 +17,7 @@ about:
 
 ## À propos
 
-Étudiant ingénieur M1 Math-Info.  Je m'interesse à la vision par ordinateur appliquée à l'imagerie médicale, au deep
+Étudiant ingénieur,  je m'interesse à la vision par ordinateur appliquée à l'imagerie médicale, au deep
 learning probabiliste et génératif, et a la formalisation mathématique d'algorithmes de Machine Learning.
 
 Cette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF).
@@ -37,10 +37,10 @@ ultrasonore.
 :::
 
 ::: {.project-card}
-### [Dirichlet Prior Networks — reproduction Malinin & Gales](projets/prior-networks.qmd)
+### [Dirichlet Prior Networks — synthèse mathématique de Malinin & Gales](projets/prior-networks.qmd)
 <div class="tags">PyTorch · CIFAR-10 · KL inverse · décomposition d'incertitude</div>
 
-test
+
 :::
 
 ::: {.project-card}
