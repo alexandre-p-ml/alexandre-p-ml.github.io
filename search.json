@@ -39,21 +39,21 @@
     "href": "index.html",
     "title": "Alexandre Pottecher",
     "section": "",
-    "text": "Étudiant ingénieur M1 Math-Info. Je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
+    "text": "Étudiant ingénieur, je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
   },
   {
     "objectID": "index.html#à-propos",
     "href": "index.html#à-propos",
     "title": "Alexandre Pottecher",
     "section": "",
-    "text": "Étudiant ingénieur M1 Math-Info. Je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
+    "text": "Étudiant ingénieur, je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
   },
   {
     "objectID": "index.html#projets",
     "href": "index.html#projets",
     "title": "Alexandre Pottecher",
     "section": "Projets",
-    "text": "Projets\n\n3D Gaussian Splatting — backpropagation rigoureuse\n\nLaTeX · différentielle de Fréchet · VJP/adjoint · DAG · imagerie médicale\n\nDocument mathématique formalisant la rétropropagation dans 3DGS : différentielles de Fréchet, formulation VJP, gradients des quaternions, alpha compositing, contrôle adaptatif de densité. Extension à un modèle simplifié d’imagerie ultrasonore.\n\n\nDirichlet Prior Networks — reproduction Malinin & Gales\n\nPyTorch · CIFAR-10 · KL inverse · décomposition d’incertitude\n\ntest\n\n\nSegmentation abdominale CT — Challenge Raidium\n\nU-Net · DINOv2 · MiT-B2 · TTA · 55 classes\n\n12 semaines de challenge ENS. Analyse de ma stratégie, des résultats et des échecs.\n\n\nPrédiction du score UPDRS — Challenge Parkinson\n\nLightGBM · XGBoost · CatBoost · stacking Ridge\n\nPipeline ML pour la prédiction du score moteur Parkinson. Modèle auxiliaire d’imputation, correction pharmacocinétique, ensemble multi-modèles avec GroupKFold."
+    "text": "Projets\n\n3D Gaussian Splatting — backpropagation rigoureuse\n\nLaTeX · différentielle de Fréchet · VJP/adjoint · DAG · imagerie médicale\n\nDocument mathématique formalisant la rétropropagation dans 3DGS : différentielles de Fréchet, formulation VJP, gradients des quaternions, alpha compositing, contrôle adaptatif de densité. Extension à un modèle simplifié d’imagerie ultrasonore.\n\n\nDirichlet Prior Networks — synthèse mathématique de Malinin & Gales\n\nPyTorch · CIFAR-10 · KL inverse · décomposition d’incertitude\n\n\n\nSegmentation abdominale CT — Challenge Raidium\n\nU-Net · DINOv2 · MiT-B2 · TTA · 55 classes\n\n12 semaines de challenge ENS. Analyse de ma stratégie, des résultats et des échecs.\n\n\nPrédiction du score UPDRS — Challenge Parkinson\n\nLightGBM · XGBoost · CatBoost · stacking Ridge\n\nPipeline ML pour la prédiction du score moteur Parkinson. Modèle auxiliaire d’imputation, correction pharmacocinétique, ensemble multi-modèles avec GroupKFold."
   },
   {
     "objectID": "projets/3dgs.html",
