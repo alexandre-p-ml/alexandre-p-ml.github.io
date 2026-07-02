@@ -136,6 +136,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projets">    
         <li>
+    <a class="dropdown-item" href="./projets/dicom-3d.html">
+ <span class="dropdown-text">DICOM to 3D</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="./projets/3dgs.html">
  <span class="dropdown-text">3D Gaussian Splatting — backpropagation</span></a>
   </li>  
@@ -182,6 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#à-propos" id="toc-à-propos" class="nav-link active" data-scroll-target="#à-propos">À propos</a></li>
   <li><a href="#projets" id="toc-projets" class="nav-link" data-scroll-target="#projets">Projets</a>
   <ul class="collapse">
+  <li><a href="#dicom-to-3d-reconstruction-3d-à-partir-dimages-dicom" id="toc-dicom-to-3d-reconstruction-3d-à-partir-dimages-dicom" class="nav-link" data-scroll-target="#dicom-to-3d-reconstruction-3d-à-partir-dimages-dicom">DICOM to 3D — Reconstruction 3D à partir d’images DICOM’</a></li>
   <li><a href="#d-gaussian-splatting-backpropagation-rigoureuse" id="toc-d-gaussian-splatting-backpropagation-rigoureuse" class="nav-link" data-scroll-target="#d-gaussian-splatting-backpropagation-rigoureuse">3D Gaussian Splatting — backpropagation rigoureuse</a></li>
   <li><a href="#dirichlet-prior-networks-reproduction-malinin-gales" id="toc-dirichlet-prior-networks-reproduction-malinin-gales" class="nav-link" data-scroll-target="#dirichlet-prior-networks-reproduction-malinin-gales">Dirichlet Prior Networks — reproduction Malinin &amp; Gales</a></li>
   <li><a href="#nightshade-lightshed-empoisonnement-et-dépoisonnement" id="toc-nightshade-lightshed-empoisonnement-et-dépoisonnement" class="nav-link" data-scroll-target="#nightshade-lightshed-empoisonnement-et-dépoisonnement">Nightshade &amp; LightShed — empoisonnement et dépoisonnement</a></li>
@@ -225,6 +230,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="projets" class="level2">
 <h2 data-anchor-id="projets">Projets</h2>
+<section id="dicom-to-3d-reconstruction-3d-à-partir-dimages-dicom" class="level3 project-card">
+<h3 data-anchor-id="dicom-to-3d-reconstruction-3d-à-partir-dimages-dicom"><a href="./projets/dicom-3d.html">DICOM to 3D — Reconstruction 3D à partir d’images DICOM’</a></h3>
+<div class="tags">
+imagerie médicale · DICOM · reconstruction 3D · visualisation
+</div>
+<p>t</p>
+</section>
 <section id="d-gaussian-splatting-backpropagation-rigoureuse" class="level3 project-card">
 <h3 data-anchor-id="d-gaussian-splatting-backpropagation-rigoureuse"><a href="./projets/3dgs.html">3D Gaussian Splatting — backpropagation rigoureuse</a></h3>
 <div class="tags">
@@ -745,46 +757,54 @@ LightGBM · XGBoost · CatBoost · stacking Ridge
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Projets</span></span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>::: {.project-card}</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### [3D Gaussian Splatting — backpropagation rigoureuse](projets/3dgs.qmd)</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"tags"</span><span class="dt">&gt;</span>LaTeX · différentielle de Fréchet · VJP/adjoint · DAG · imagerie médicale<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### [DICOM to 3D — Reconstruction 3D à partir d'images DICOM'](projets/dicom-3d.qmd)</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"tags"</span><span class="dt">&gt;</span>imagerie médicale · DICOM · reconstruction 3D · visualisation<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Document mathématique formalisant la rétropropagation dans 3DGS : différentielles</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>de Fréchet, formulation VJP, gradients des quaternions, alpha compositing,</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>contrôle adaptatif de densité. Extension à un modèle simplifié d'imagerie</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>ultrasonore.</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>::: {.project-card}</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Dirichlet Prior Networks — reproduction Malinin &amp; Gales](projets/prior-networks.qmd)</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"tags"</span><span class="dt">&gt;</span>PyTorch · CIFAR-10 · KL inverse · décomposition d'incertitude<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>test</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>::: {.project-card}</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Nightshade &amp; LightShed — empoisonnement et dépoisonnement](projets/nightshade-lightshed.qmd)</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"tags"</span><span class="dt">&gt;</span>sécurité ML · adversarial · attaque/défense · vision<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>Reproduction pédagogique de l'attaque Nightshade (collision de features sous</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>budget perceptuel) et de sa défense LightShed (détection par entropie +</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>soustraction).</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>::: {.project-card}</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Segmentation abdominale CT — Challenge Raidium](projets/raidium.qmd)</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"tags"</span><span class="dt">&gt;</span>U-Net · DINOv2 · MiT-B2 · TTA · 55 classes<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>12 semaines de challenge ENS. Analyse de ma stratégie, des résultats et des échecs.</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>::: {.project-card}</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Prédiction du score UPDRS — Challenge Parkinson](projets/parkinson.qmd)</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"tags"</span><span class="dt">&gt;</span>LightGBM · XGBoost · CatBoost · stacking Ridge<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>Pipeline ML pour la prédiction du score moteur Parkinson.</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>Modèle auxiliaire d'imputation, correction pharmacocinétique, ensemble</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>multi-modèles avec GroupKFold.</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>t</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>::: {.project-card}</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### [3D Gaussian Splatting — backpropagation rigoureuse](projets/3dgs.qmd)</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"tags"</span><span class="dt">&gt;</span>LaTeX · différentielle de Fréchet · VJP/adjoint · DAG · imagerie médicale<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>Document mathématique formalisant la rétropropagation dans 3DGS : différentielles</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>de Fréchet, formulation VJP, gradients des quaternions, alpha compositing,</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>contrôle adaptatif de densité. Extension à un modèle simplifié d'imagerie</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>ultrasonore.</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>::: {.project-card}</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Dirichlet Prior Networks — reproduction Malinin &amp; Gales](projets/prior-networks.qmd)</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"tags"</span><span class="dt">&gt;</span>PyTorch · CIFAR-10 · KL inverse · décomposition d'incertitude<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>test</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>::: {.project-card}</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Nightshade &amp; LightShed — empoisonnement et dépoisonnement](projets/nightshade-lightshed.qmd)</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"tags"</span><span class="dt">&gt;</span>sécurité ML · adversarial · attaque/défense · vision<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>Reproduction pédagogique de l'attaque Nightshade (collision de features sous</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>budget perceptuel) et de sa défense LightShed (détection par entropie +</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>soustraction).</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>::: {.project-card}</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Segmentation abdominale CT — Challenge Raidium](projets/raidium.qmd)</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"tags"</span><span class="dt">&gt;</span>U-Net · DINOv2 · MiT-B2 · TTA · 55 classes<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>12 semaines de challenge ENS. Analyse de ma stratégie, des résultats et des échecs.</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>::: {.project-card}</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Prédiction du score UPDRS — Challenge Parkinson](projets/parkinson.qmd)</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"tags"</span><span class="dt">&gt;</span>LightGBM · XGBoost · CatBoost · stacking Ridge<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>Pipeline ML pour la prédiction du score moteur Parkinson.</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>Modèle auxiliaire d'imputation, correction pharmacocinétique, ensemble</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>multi-modèles avec GroupKFold.</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

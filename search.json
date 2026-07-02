@@ -70,6 +70,55 @@
     "text": "Stacking\n\n\\hat{y}_{\\text{final}} = \\mathrm{Ridge}\\big(\n\\hat{y}_{\\text{LGBM}}, \\hat{y}_{\\text{XGB}}, \\hat{y}_{\\text{Cat}}, \\boldsymbol{x}_{\\text{meta}}\n\\big)\n\noù \\boldsymbol{x}_{\\text{meta}} contient les agrégats patient et l’écart à la moyenne population.\n\n\n\n\n\n\nNoteInférence autorégressive : abandonnée\n\n\n\nJ’ai testé une inférence autorégressive (le score prédit à t devient feature à t+1), théoriquement séduisante mais empiriquement contre-productive : accumulation des erreurs sur les longues séquences, RMSE dégradée de ~0.3."
   },
   {
+    "objectID": "projets/dicom-3d.html",
+    "href": "projets/dicom-3d.html",
+    "title": "DICOM → 3D",
+    "section": "",
+    "text": "📥 Télécharger la visualisation"
+  },
+  {
+    "objectID": "projets/dicom-3d.html#visualisation-interactive",
+    "href": "projets/dicom-3d.html#visualisation-interactive",
+    "title": "DICOM → 3D",
+    "section": "",
+    "text": "📥 Télécharger la visualisation"
+  },
+  {
+    "objectID": "projets/dicom-3d.html#données-source",
+    "href": "projets/dicom-3d.html#données-source",
+    "title": "DICOM → 3D",
+    "section": "Données source",
+    "text": "Données source\n\n\n\n\n\n\nVue sagittale — colonne lombaire complète.\n\n\n\n\n\n\n\nVue axiale — coupe vertébrale avec annotation."
+  },
+  {
+    "objectID": "projets/dicom-3d.html#d",
+    "href": "projets/dicom-3d.html#d",
+    "title": "DICOM → 3D",
+    "section": "D",
+    "text": "D"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Alexandre Pottecher",
+    "section": "",
+    "text": "Étudiant ingénieur M1 Math-Info. Je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
+  },
+  {
+    "objectID": "index.html#à-propos",
+    "href": "index.html#à-propos",
+    "title": "Alexandre Pottecher",
+    "section": "",
+    "text": "Étudiant ingénieur M1 Math-Info. Je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
+  },
+  {
+    "objectID": "index.html#projets",
+    "href": "index.html#projets",
+    "title": "Alexandre Pottecher",
+    "section": "Projets",
+    "text": "Projets\n\nDICOM to 3D — Reconstruction 3D à partir d’images DICOM’\n\nimagerie médicale · DICOM · reconstruction 3D · visualisation\n\nt\n\n\n3D Gaussian Splatting — backpropagation rigoureuse\n\nLaTeX · différentielle de Fréchet · VJP/adjoint · DAG · imagerie médicale\n\nDocument mathématique formalisant la rétropropagation dans 3DGS : différentielles de Fréchet, formulation VJP, gradients des quaternions, alpha compositing, contrôle adaptatif de densité. Extension à un modèle simplifié d’imagerie ultrasonore.\n\n\nDirichlet Prior Networks — reproduction Malinin & Gales\n\nPyTorch · CIFAR-10 · KL inverse · décomposition d’incertitude\n\ntest\n\n\nNightshade & LightShed — empoisonnement et dépoisonnement\n\nsécurité ML · adversarial · attaque/défense · vision\n\nReproduction pédagogique de l’attaque Nightshade (collision de features sous budget perceptuel) et de sa défense LightShed (détection par entropie + soustraction).\n\n\nSegmentation abdominale CT — Challenge Raidium\n\nU-Net · DINOv2 · MiT-B2 · TTA · 55 classes\n\n12 semaines de challenge ENS. Analyse de ma stratégie, des résultats et des échecs.\n\n\nPrédiction du score UPDRS — Challenge Parkinson\n\nLightGBM · XGBoost · CatBoost · stacking Ridge\n\nPipeline ML pour la prédiction du score moteur Parkinson. Modèle auxiliaire d’imputation, correction pharmacocinétique, ensemble multi-modèles avec GroupKFold."
+  },
+  {
     "objectID": "projets/3dgs.html",
     "href": "projets/3dgs.html",
     "title": "Mathématiques dans le 3D Gaussian Splatting",
@@ -105,27 +154,6 @@
     "text": "Contenu mathématique abordé\n\nCadre fonctionnel. Variétés de Gaussiennes 3D paramétrées par (\\mu, q, s, \\alpha, c) où q \\in \\mathbb{H} est un quaternion unitaire.\nDifférentielles de Fréchet des opérations clés : projection perspective, conversion quaternion → matrice de rotation, construction de la covariance \\Sigma = R S S^\\top R^\\top.\nAdjoints / VJP. Pour chaque opération f : E \\to F, calcul de f'(x)^* : F^* \\to E^* permettant la propagation des cotangentes en arrière sur le DAG.\nAlpha compositing. Adjoint de la composition récursive C = \\sum_i c_i \\alpha_i T_i avec T_i = \\prod_{j&lt;i}(1-\\alpha_j).\nContrôle adaptatif de densité. Critères de split/clone et leur cohérence avec les gradients accumulés.\nExtension imagerie médicale. Modèle simplifié d’acquisition ultrasonore."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Alexandre Pottecher",
-    "section": "",
-    "text": "Étudiant ingénieur M1 Math-Info. Je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
-  },
-  {
-    "objectID": "index.html#à-propos",
-    "href": "index.html#à-propos",
-    "title": "Alexandre Pottecher",
-    "section": "",
-    "text": "Étudiant ingénieur M1 Math-Info. Je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
-  },
-  {
-    "objectID": "index.html#projets",
-    "href": "index.html#projets",
-    "title": "Alexandre Pottecher",
-    "section": "Projets",
-    "text": "Projets\n\n3D Gaussian Splatting — backpropagation rigoureuse\n\nLaTeX · différentielle de Fréchet · VJP/adjoint · DAG · imagerie médicale\n\nDocument mathématique formalisant la rétropropagation dans 3DGS : différentielles de Fréchet, formulation VJP, gradients des quaternions, alpha compositing, contrôle adaptatif de densité. Extension à un modèle simplifié d’imagerie ultrasonore.\n\n\nDirichlet Prior Networks — reproduction Malinin & Gales\n\nPyTorch · CIFAR-10 · KL inverse · décomposition d’incertitude\n\ntest\n\n\nNightshade & LightShed — empoisonnement et dépoisonnement\n\nsécurité ML · adversarial · attaque/défense · vision\n\nReproduction pédagogique de l’attaque Nightshade (collision de features sous budget perceptuel) et de sa défense LightShed (détection par entropie + soustraction).\n\n\nSegmentation abdominale CT — Challenge Raidium\n\nU-Net · DINOv2 · MiT-B2 · TTA · 55 classes\n\n12 semaines de challenge ENS. Analyse de ma stratégie, des résultats et des échecs.\n\n\nPrédiction du score UPDRS — Challenge Parkinson\n\nLightGBM · XGBoost · CatBoost · stacking Ridge\n\nPipeline ML pour la prédiction du score moteur Parkinson. Modèle auxiliaire d’imputation, correction pharmacocinétique, ensemble multi-modèles avec GroupKFold."
-  },
-  {
     "objectID": "projets/nightshade-lightshed.html",
     "href": "projets/nightshade-lightshed.html",
     "title": "Nightshade & LightShed",
@@ -151,14 +179,14 @@
     "href": "projets/nightshade-lightshed.html#nightshade",
     "title": "Nightshade & LightShed",
     "section": "Nightshade",
-    "text": "Nightshade\nLe cœur de la méthode (équations 1–2 du papier) :\n\n\\min_{\\delta}\\ \\big\\lVert F(x_t+\\delta)-F(x^{a})\\big\\rVert_2^2\n\\quad \\text{s.c.}\\ \\lVert\\delta\\rVert \\le p\n\noù F est l’extracteur de features, x_t l’image du concept attaqué, x^a l’ancre, et p le budget perceptuel sous lequel la perturbation reste invisible à l’œil.\nF joue ici le rôle de l’encodeur VAE de Stable Diffusion : peu importe sa nature précise, l’attaque consiste à faire coller les features de l’image empoisonnée à celles de l’ancre, tout en gardant l’image visuellement inchangée.\n\n\n\nÀ gauche : image originale et image empoisonnée, visuellement quasi identiques. Au centre : la perturbation δ amplifiée pour être visible — un bruit structuré, pas du tout aléatoire. À droite : la similarité cosinus dans l’espace de F confirme la collision — poison↔︎chat (≈0.95) dépasse largement chien↔︎chat (≈0.58) et même poison↔︎chien (≈0.73).\n\n\nL’image empoisonnée reste visuellement un chien mais ses features ont migré vers le chat. Injectée en quantité suffisante à l’entraînement d’un modèle texte to image, l’association \"chien\" → features de chien est écrasée : le modèle génère des chats sur le prompt « chien »."
+    "text": "Nightshade\nLe cœur de la méthode (équations 1–2 du papier) :\n\n\\min_{\\delta}\\ \\big\\lVert F(x_t+\\delta)-F(x^{a})\\big\\rVert_2^2\n\\quad \\text{s.c.}\\ \\lVert\\delta\\rVert \\le p\n\noù F est l’extracteur de features, x_t l’image du concept attaqué, x^a l’ancre, et p le budget perceptuel sous lequel la perturbation reste invisible à l’œil.\nF joue ici le rôle de l’encodeur VAE de Stable Diffusion : peu importe sa nature précise, l’attaque consiste à faire coller les features de l’image empoisonnée à celles de l’ancre, tout en gardant l’image visuellement inchangée.\n\n\n\nÀ gauche : image originale et image empoisonnée, visuellement quasi identiques. Au centre : la perturbation δ amplifiée pour être visible (un bruit structuré pas du tout aléatoire). À droite : la similarité cosinus dans l’espace de F confirme la collision, poison/chat (≈0.95) dépasse largement chien/chat (≈0.58) et même poison/chien (≈0.73).\n\n\nL’image empoisonnée reste visuellement un chien mais ses features ont migré vers le chat. Injectée en quantité suffisante à l’entraînement d’un modèle texte to image, l’association \"chien\" → features de chien est écrasée : le modèle génère des chats sur le prompt « chien »."
   },
   {
     "objectID": "projets/nightshade-lightshed.html#lightshed",
     "href": "projets/nightshade-lightshed.html#lightshed",
     "title": "Nightshade & LightShed",
     "section": "LightShed",
-    "text": "LightShed\nHypothèse importante du papier : l’attaquant a accès à l’outil de protection donc peut fabriquer des paires (image propre, image empoisonnée) et entraîner un détecteur sur l’empreinte de \\delta.\nLe pipeline :\n\nDétection par entropie (Entropy Cut-Off) : un auto-encodeur apprend à reconstruire \\delta à partir d’une image suspecte. Sur une image propre il ne reconstruit presque rien mais sur une image empoisonnée il reconstruit l’empreinte de la perturbation. L’entropie de cette reconstruction sépare nettement les deux classes (TPR/TNR ≈ 1 sur mon mini-dataset).\nNettoyage par soustraction : image propre ≈ image empoisonnée − \\delta reconstruite.\n\n\n\n\nSur un crop empoisonné : image de référence propre, image empoisonnée (SSIM=0.595 par rapport à la référence), la perturbation δ reconstruite par l’auto-encodeur (amplifiée pour visibilité), et l’image nettoyée après soustraction (SSIM remonte à 0.624 — un rapprochement net de la référence)."
+    "text": "LightShed\nHypothèse importante du papier : l’attaquant a accès à l’outil de protection donc peut fabriquer des paires (image propre, image empoisonnée) et entraîner un détecteur sur l’empreinte de \\delta.\nLe pipeline :\n\nDétection par entropie : un auto-encodeur apprend à reconstruire \\delta à partir d’une image suspecte. Sur une image propre il ne reconstruit presque rien mais sur une image empoisonnée il reconstruit l’empreinte de la perturbation. L’entropie de cette reconstruction sépare nettement les deux classes (TPR/TNR ≈ 1 sur mon mini-dataset).\nNettoyage par soustraction : image propre ≈ image empoisonnée − \\delta reconstruite.\n\n\n\n\nSur un crop empoisonné : image de référence propre, image empoisonnée (SSIM=0.595 par rapport à la référence), la perturbation δ reconstruite par l’auto-encodeur (amplifiée pour visibilité), et l’image nettoyée après soustraction (SSIM remonte à 0.624 — un rapprochement net de la référence)."
   },
   {
     "objectID": "projets/prior-networks.html",

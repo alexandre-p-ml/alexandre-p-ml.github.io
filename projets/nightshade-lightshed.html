@@ -181,6 +181,10 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projets">    
         <li>
+    <a class="dropdown-item" href="../projets/dicom-3d.html">
+ <span class="dropdown-text">DICOM to 3D</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../projets/3dgs.html">
  <span class="dropdown-text">3D Gaussian Splatting — backpropagation</span></a>
   </li>  
@@ -295,7 +299,7 @@ window.Quarto = {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/nightshade-attack.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>À gauche : image originale et image empoisonnée, visuellement quasi identiques. Au centre : la perturbation δ amplifiée pour être visible — un bruit structuré, pas du tout aléatoire. À droite : la similarité cosinus dans l’espace de F confirme la collision — poison↔︎chat (≈0.95) dépasse largement chien↔︎chat (≈0.58) et même poison↔︎chien (≈0.73).</figcaption>
+<figcaption>À gauche : image originale et image empoisonnée, visuellement quasi identiques. Au centre : la perturbation δ amplifiée pour être visible (un bruit structuré pas du tout aléatoire). À droite : la similarité cosinus dans l’espace de F confirme la collision, poison/chat (≈0.95) dépasse largement chien/chat (≈0.58) et même poison/chien (≈0.73).</figcaption>
 </figure>
 </div>
 <p>L’image empoisonnée reste visuellement un chien mais ses features ont migré vers le chat. Injectée en quantité suffisante à l’entraînement d’un modèle texte to image, l’association <code>"chien" → features de chien</code> est écrasée : le modèle génère des chats sur le prompt « chien ».</p>
@@ -305,7 +309,7 @@ window.Quarto = {
 <p>Hypothèse importante du papier : l’attaquant a accès à l’outil de protection donc peut fabriquer des paires (image propre, image empoisonnée) et entraîner un détecteur sur l’empreinte de <span class="math inline">\delta</span>.</p>
 <p>Le pipeline :</p>
 <ol type="1">
-<li>Détection par entropie (<em>Entropy Cut-Off</em>) : un auto-encodeur apprend à reconstruire <span class="math inline">\delta</span> à partir d’une image suspecte. Sur une image propre il ne reconstruit presque rien mais sur une image empoisonnée il reconstruit l’empreinte de la perturbation. L’entropie de cette reconstruction sépare nettement les deux classes (TPR/TNR ≈ 1 sur mon mini-dataset).</li>
+<li>Détection par entropie : un auto-encodeur apprend à reconstruire <span class="math inline">\delta</span> à partir d’une image suspecte. Sur une image propre il ne reconstruit presque rien mais sur une image empoisonnée il reconstruit l’empreinte de la perturbation. L’entropie de cette reconstruction sépare nettement les deux classes (TPR/TNR ≈ 1 sur mon mini-dataset).</li>
 <li>Nettoyage par soustraction : image propre ≈ image empoisonnée − <span class="math inline">\delta</span> reconstruite.</li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
@@ -820,7 +824,7 @@ window.Quarto = {
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>empoisonnée à celles de l'ancre, tout en gardant l'image visuellement</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>inchangée.</span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="al">![À gauche : image originale et image empoisonnée, visuellement quasi identiques. Au centre : la perturbation δ amplifiée pour être visible — un bruit structuré, pas du tout aléatoire. À droite : la similarité cosinus dans l'espace de F confirme la collision — poison↔chat (≈0.95) dépasse largement chien↔chat (≈0.58) et même poison↔chien (≈0.73).](../img/nightshade-attack.png)</span>{fig-align="center" width="100%"}</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="al">![À gauche : image originale et image empoisonnée, visuellement quasi identiques. Au centre : la perturbation δ amplifiée pour être visible (un bruit structuré pas du tout aléatoire). À droite : la similarité cosinus dans l'espace de F confirme la collision, poison/chat (≈0.95) dépasse largement chien/chat (≈0.58) et même poison/chien (≈0.73).](../img/nightshade-attack.png)</span>{fig-align="center" width="100%"}</span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>L'image empoisonnée reste visuellement un chien mais ses features ont</span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>migré vers le chat. Injectée en quantité suffisante à l'entraînement d'un</span>
@@ -835,7 +839,7 @@ window.Quarto = {
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>Le pipeline :</span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Détection par entropie (*Entropy Cut-Off*) : un auto-encodeur apprend à</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Détection par entropie : un auto-encodeur apprend à</span>
 <span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>   reconstruire $\delta$ à partir d'une image suspecte. Sur une image propre</span>
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>   il ne reconstruit presque rien mais sur une image empoisonnée il</span>
 <span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>   reconstruit l'empreinte de la perturbation. L'entropie de cette</span>
