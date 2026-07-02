@@ -186,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lien-github" id="toc-lien-github" class="nav-link active" data-scroll-target="#lien-github">Lien GitHub</a></li>
+  <li><a href="#download-code" id="toc-download-code" class="nav-link active" data-scroll-target="#download-code">Download code</a></li>
   <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#approach-results" id="toc-approach-results" class="nav-link" data-scroll-target="#approach-results">Approach &amp; Results</a>
   <ul class="collapse">
@@ -228,8 +228,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="lien-github" class="level2">
-<h2 class="anchored" data-anchor-id="lien-github">Lien GitHub</h2>
+<section id="download-code" class="level2">
+<h2 class="anchored" data-anchor-id="download-code">Download code</h2>
 <p><a class="download-btn" href="../files/raidium_ens_data_challenge.html" download=""> 📓 Notebook</a></p>
 <hr>
 </section>
@@ -307,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To further improve rare-class discrimination, I analyzed the latent space using PCA and introduced Supervised Contrastive Learning (SupCon), which raised the score to 0.385 despite a decrease in the latent-space silhouette score. Finally, Test-Time Augmentation provided a nearly free improvement, bringing the public leaderboard score to 0.4005.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../img/latent_explosion.png.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="../img/latent_explosion.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <figcaption>Latent space manipulation</figcaption>
 </figure>
 </div>
@@ -817,7 +817,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> []</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lien GitHub</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Download code</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> class</span><span class="op">=</span><span class="st">"download-btn"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"../files/raidium_ens_data_challenge.ipynb"</span><span class="ot"> download</span><span class="dt">&gt;</span> 📓 Notebook<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
@@ -862,7 +862,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>To further improve rare-class discrimination, I analyzed the latent space using PCA and introduced Supervised Contrastive Learning (SupCon), which raised the score to 0.385 despite a decrease in the latent-space silhouette score. Finally, Test-Time Augmentation provided a nearly free improvement, bringing the public leaderboard score to 0.4005.</span>
 <span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="al">![Latent space manipulation](../img/latent_explosion.png.png)</span>{fig-align="center" width="100%"}</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="al">![Latent space manipulation](../img/latent_explosion.png)</span>{fig-align="center" width="100%"}</span>
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>The remaining performance gap was ultimately explained by the evaluation metric: the competition used an unmasked macro Dice, where every anatomical class contributes equally regardless of its frequency. As a result, missing a few extremely rare classes had a disproportionately large impact on the final score, whereas my local masked validation substantially overestimated leaderboard performance.</span>
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>

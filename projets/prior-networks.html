@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-01-01">
 
-<title>Mathématiques dans les Prior Networks – Alexandre Pottecher</title>
+<title>Mathematics of Prior Networks – Alexandre Pottecher</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -186,9 +186,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#résumé" id="toc-résumé" class="nav-link active" data-scroll-target="#résumé">Résumé</a></li>
-  <li><a href="#téléchargements" id="toc-téléchargements" class="nav-link" data-scroll-target="#téléchargements">Téléchargements</a></li>
-  <li><a href="#aperçu" id="toc-aperçu" class="nav-link" data-scroll-target="#aperçu">Aperçu</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#download" id="toc-download" class="nav-link" data-scroll-target="#download">Download</a></li>
+  <li><a href="#preview" id="toc-preview" class="nav-link" data-scroll-target="#preview">Preview</a></li>
   </ul>
 </nav>
     </div>
@@ -197,8 +197,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Mathématiques dans les Prior Networks</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-<p class="subtitle lead">Preuve de Malinin &amp; Gales (NeurIPS 2019)</p>
+<div class="quarto-title-block"><div><h1 class="title">Mathematics of Prior Networks</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<p class="subtitle lead">Proofs of Selected Results from Malinin &amp; Gales paper (NeurIPS 2019)</p>
 </div>
 
 
@@ -221,16 +221,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="résumé" class="level2">
-<h2 class="anchored" data-anchor-id="résumé">Résumé</h2>
-<p>Réimplémentation de <em>Reverse KL-divergence Training of Prior Networks for Adversarial Robustness</em> (Malinin &amp; Gales, NeurIPS 2019). Un Prior Network paramétrise une distribution de Dirichlet sur le simplexe des probabilités de classe, permettant de décomposer l’incertitude en composantes <em>données</em> (aleatoric), <em>connaissances</em> (epistemic) et <em>distributionnelle</em>.</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This document provides detailed mathematical proofs of several key results from Reverse KL-Divergence Training of Prior Networks for Adversarial Robustness (<a href="https://proceedings.neurips.cc/paper_files/paper/2019/file/7dd2ae7db7d18ee7c9425e38df1af5e2-Paper.pdf"><em>Reverse KL-Divergence Training of Prior Networks: Improved Uncertainty and Adversarial Robustness</em></a> Malinin &amp; Gales, NeurIPS 2019). It derives the theoretical foundations of Prior Networks, in which a Dirichlet distribution is parameterized over the simplex of class probabilities, allowing predictive uncertainty to be decomposed into its aleatoric, epistemic, and distributional components.</p>
 </section>
-<section id="téléchargements" class="level2">
-<h2 class="anchored" data-anchor-id="téléchargements">Téléchargements</h2>
-<p><a class="download-btn" href="../files/synthese_math_DPN.pdf" download="">📄 Télécharger le PDF</a></p>
+<section id="download" class="level2">
+<h2 class="anchored" data-anchor-id="download">Download</h2>
+<p><a class="download-btn" href="../files/synthese_math_DPN.pdf" download="">📄 Download PDF</a></p>
 </section>
-<section id="aperçu" class="level2">
-<h2 class="anchored" data-anchor-id="aperçu">Aperçu</h2>
+<section id="preview" class="level2">
+<h2 class="anchored" data-anchor-id="preview">Preview</h2>
 <embed src="../files/synthese_math_DPN.pdf" type="application/pdf" width="100%" height="600px">
 
 
@@ -696,28 +696,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Mathématiques dans les Prior Networks"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Preuve de Malinin &amp; Gales (NeurIPS 2019)"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Mathematics of Prior Networks"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Proofs of Selected Results from Malinin &amp; Gales paper (NeurIPS 2019)"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "Mai 2026"</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> []</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Résumé</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Réimplémentation de *Reverse KL-divergence Training of Prior Networks for</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Adversarial Robustness* (Malinin &amp; Gales, NeurIPS 2019). Un Prior Network</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>paramétrise une distribution de Dirichlet sur le simplexe des probabilités</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>de classe, permettant de décomposer l'incertitude en composantes</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>*données* (aleatoric), *connaissances* (epistemic) et *distributionnelle*.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>This document provides detailed mathematical proofs of several key results from Reverse KL-Divergence Training of Prior Networks for Adversarial Robustness (<span class="co">[</span><span class="ot">*Reverse KL-Divergence Training of Prior Networks: Improved Uncertainty and Adversarial Robustness*</span><span class="co">](https://proceedings.neurips.cc/paper_files/paper/2019/file/7dd2ae7db7d18ee7c9425e38df1af5e2-Paper.pdf)</span> Malinin &amp; Gales, NeurIPS 2019). It derives the theoretical foundations of Prior Networks, in which a Dirichlet distribution is parameterized over the simplex of class probabilities, allowing predictive uncertainty to be decomposed into its aleatoric, epistemic, and distributional components.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Download</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> class</span><span class="op">=</span><span class="st">"download-btn"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"../files/synthese_math_DPN.pdf"</span><span class="ot"> download</span><span class="dt">&gt;</span>📄 Download PDF<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Téléchargements</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Preview</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> class</span><span class="op">=</span><span class="st">"download-btn"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"../files/synthese_math_DPN.pdf"</span><span class="ot"> download</span><span class="dt">&gt;</span>📄 Télécharger le PDF<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Aperçu</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">embed</span><span class="ot"> src</span><span class="op">=</span><span class="st">"../files/synthese_math_DPN.pdf"</span><span class="ot"> type</span><span class="op">=</span><span class="st">"application/pdf"</span><span class="ot"> width</span><span class="op">=</span><span class="st">"100%"</span><span class="ot"> height</span><span class="op">=</span><span class="st">"600px"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">embed</span><span class="ot"> src</span><span class="op">=</span><span class="st">"../files/synthese_math_DPN.pdf"</span><span class="ot"> type</span><span class="op">=</span><span class="st">"application/pdf"</span><span class="ot"> width</span><span class="op">=</span><span class="st">"100%"</span><span class="ot"> height</span><span class="op">=</span><span class="st">"600px"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

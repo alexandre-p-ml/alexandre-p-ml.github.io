@@ -7,8 +7,8 @@
     "text": "📓 Notebook"
   },
   {
-    "objectID": "projets/raidium.html#lien-github",
-    "href": "projets/raidium.html#lien-github",
+    "objectID": "projets/raidium.html#download-code",
+    "href": "projets/raidium.html#download-code",
     "title": "Medical Image Segmentation",
     "section": "",
     "text": "📓 Notebook"
@@ -282,29 +282,29 @@
   {
     "objectID": "projets/prior-networks.html",
     "href": "projets/prior-networks.html",
-    "title": "Mathématiques dans les Prior Networks",
+    "title": "Mathematics of Prior Networks",
     "section": "",
-    "text": "Réimplémentation de Reverse KL-divergence Training of Prior Networks for Adversarial Robustness (Malinin & Gales, NeurIPS 2019). Un Prior Network paramétrise une distribution de Dirichlet sur le simplexe des probabilités de classe, permettant de décomposer l’incertitude en composantes données (aleatoric), connaissances (epistemic) et distributionnelle."
+    "text": "This document provides detailed mathematical proofs of several key results from Reverse KL-Divergence Training of Prior Networks for Adversarial Robustness (Reverse KL-Divergence Training of Prior Networks: Improved Uncertainty and Adversarial Robustness Malinin & Gales, NeurIPS 2019). It derives the theoretical foundations of Prior Networks, in which a Dirichlet distribution is parameterized over the simplex of class probabilities, allowing predictive uncertainty to be decomposed into its aleatoric, epistemic, and distributional components."
   },
   {
-    "objectID": "projets/prior-networks.html#résumé",
-    "href": "projets/prior-networks.html#résumé",
-    "title": "Mathématiques dans les Prior Networks",
+    "objectID": "projets/prior-networks.html#overview",
+    "href": "projets/prior-networks.html#overview",
+    "title": "Mathematics of Prior Networks",
     "section": "",
-    "text": "Réimplémentation de Reverse KL-divergence Training of Prior Networks for Adversarial Robustness (Malinin & Gales, NeurIPS 2019). Un Prior Network paramétrise une distribution de Dirichlet sur le simplexe des probabilités de classe, permettant de décomposer l’incertitude en composantes données (aleatoric), connaissances (epistemic) et distributionnelle."
+    "text": "This document provides detailed mathematical proofs of several key results from Reverse KL-Divergence Training of Prior Networks for Adversarial Robustness (Reverse KL-Divergence Training of Prior Networks: Improved Uncertainty and Adversarial Robustness Malinin & Gales, NeurIPS 2019). It derives the theoretical foundations of Prior Networks, in which a Dirichlet distribution is parameterized over the simplex of class probabilities, allowing predictive uncertainty to be decomposed into its aleatoric, epistemic, and distributional components."
   },
   {
-    "objectID": "projets/prior-networks.html#téléchargements",
-    "href": "projets/prior-networks.html#téléchargements",
-    "title": "Mathématiques dans les Prior Networks",
-    "section": "Téléchargements",
-    "text": "Téléchargements\n📄 Télécharger le PDF"
+    "objectID": "projets/prior-networks.html#download",
+    "href": "projets/prior-networks.html#download",
+    "title": "Mathematics of Prior Networks",
+    "section": "Download",
+    "text": "Download\n📄 Download PDF"
   },
   {
-    "objectID": "projets/prior-networks.html#aperçu",
-    "href": "projets/prior-networks.html#aperçu",
-    "title": "Mathématiques dans les Prior Networks",
-    "section": "Aperçu",
-    "text": "Aperçu"
+    "objectID": "projets/prior-networks.html#preview",
+    "href": "projets/prior-networks.html#preview",
+    "title": "Mathematics of Prior Networks",
+    "section": "Preview",
+    "text": "Preview"
   }
 ]
