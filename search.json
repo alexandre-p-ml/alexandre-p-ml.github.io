@@ -130,42 +130,35 @@
     "href": "projets/nightshade-lightshed.html",
     "title": "Nightshade & LightShed",
     "section": "",
-    "text": "📓 Télécharger le notebook\n\n\n\n\n\n\nWarningAvertissement\n\n\n\nLes deux techniques présentées touchent au droit d’auteur et à la protection des artistes face aux modèles génératifs. Ce code est purement pédagogique, destiné à comprendre les mécanismes décrits dans les papiers de recherche correspondants."
+    "text": "📓 Télécharger le notebook\nCompte rendu de mon mini stage de recherche à l’Applied Artificial Intelligence Laboratory de Penn Sate University (Aout-Decembre 2025)."
   },
   {
     "objectID": "projets/nightshade-lightshed.html#téléchargements",
     "href": "projets/nightshade-lightshed.html#téléchargements",
     "title": "Nightshade & LightShed",
     "section": "",
-    "text": "📓 Télécharger le notebook\n\n\n\n\n\n\nWarningAvertissement\n\n\n\nLes deux techniques présentées touchent au droit d’auteur et à la protection des artistes face aux modèles génératifs. Ce code est purement pédagogique, destiné à comprendre les mécanismes décrits dans les papiers de recherche correspondants."
+    "text": "📓 Télécharger le notebook\nCompte rendu de mon mini stage de recherche à l’Applied Artificial Intelligence Laboratory de Penn Sate University (Aout-Decembre 2025)."
   },
   {
-    "objectID": "projets/nightshade-lightshed.html#le-principe-deux-papiers-deux-rôles",
-    "href": "projets/nightshade-lightshed.html#le-principe-deux-papiers-deux-rôles",
+    "objectID": "projets/nightshade-lightshed.html#le-principe",
+    "href": "projets/nightshade-lightshed.html#le-principe",
     "title": "Nightshade & LightShed",
-    "section": "1. Le principe — deux papiers, deux rôles",
-    "text": "1. Le principe — deux papiers, deux rôles\nReproduction pédagogique de deux travaux complémentaires : l’un attaque, l’autre défend.\n\nNightshade (Shan et al., IEEE S&P 2024) — attaque. Empoisonnement « prompt-specific » des modèles texte→image. On part d’une image d’un concept attaqué C et on lui ajoute une perturbation imperceptible \\delta qui pousse ses features vers celles d’une image ancre d’un autre concept A.\nLightShed (Foerster et al., USENIX Security 2025) — défense côté attaquant. Un auto-encodeur apprend à reconstruire la perturbation \\delta injectée ; son entropie sert de détecteur, puis on soustrait \\delta pour récupérer l’image propre.\n\n\n\n\nLes deux images de travail : C = chien (concept attaqué), A = chat (ancre vers laquelle on pousse les features)."
+    "section": "Le principe",
+    "text": "Le principe\n\nNightshade (Shan et al., IEEE S&P 2024) l’attaque. Empoisonnement « prompt-specific » des modèles texte to image. On part d’une image d’un concept attaqué C et on lui ajoute une perturbation imperceptible \\delta qui pousse ses features vers celles d’une image ancre d’un autre concept A.\nLightShed (Foerster et al., USENIX Security 2025). Un auto-encodeur apprend à reconstruire la perturbation \\delta injectée : son entropie sert de détecteur, puis on soustrait \\delta pour récupérer l’image propre.\n\n\n\n\nLes deux images de travail : C = chien (concept attaqué), A = chat (ancre vers laquelle on pousse les features)."
   },
   {
-    "objectID": "projets/nightshade-lightshed.html#nightshade-lattaque",
-    "href": "projets/nightshade-lightshed.html#nightshade-lattaque",
+    "objectID": "projets/nightshade-lightshed.html#nightshade",
+    "href": "projets/nightshade-lightshed.html#nightshade",
     "title": "Nightshade & LightShed",
-    "section": "2. Nightshade — l’attaque",
-    "text": "2. Nightshade — l’attaque\nLe cœur de la méthode (équations 1–2 du papier) :\n\n\\min_{\\delta}\\ \\big\\lVert F(x_t+\\delta)-F(x^{a})\\big\\rVert_2^2\n\\quad \\text{s.c.}\\ \\lVert\\delta\\rVert \\le p\n\noù F est l’extracteur de features, x_t l’image du concept attaqué, x^a l’ancre, et p le budget perceptuel sous lequel la perturbation reste invisible à l’œil.\nF joue ici le rôle de l’encodeur VAE de Stable Diffusion : peu importe sa nature précise, l’attaque consiste à faire coller les features de l’image empoisonnée à celles de l’ancre, tout en gardant l’image visuellement inchangée.\n\n\n\nÀ gauche : image originale et image empoisonnée, visuellement quasi identiques. Au centre : la perturbation δ amplifiée pour être visible — un bruit structuré, pas du tout aléatoire. À droite : la similarité cosinus dans l’espace de F confirme la collision — poison↔︎chat (≈0.95) dépasse largement chien↔︎chat (≈0.58) et même poison↔︎chien (≈0.73).\n\n\nL’image empoisonnée reste visuellement un chien, mais ses features ont migré vers le chat. Injectée en quantité suffisante à l’entraînement d’un modèle texte→image, l’association \"chien\" → features de chien est écrasée : le modèle génère des chats sur le prompt « chien »."
+    "section": "Nightshade",
+    "text": "Nightshade\nLe cœur de la méthode (équations 1–2 du papier) :\n\n\\min_{\\delta}\\ \\big\\lVert F(x_t+\\delta)-F(x^{a})\\big\\rVert_2^2\n\\quad \\text{s.c.}\\ \\lVert\\delta\\rVert \\le p\n\noù F est l’extracteur de features, x_t l’image du concept attaqué, x^a l’ancre, et p le budget perceptuel sous lequel la perturbation reste invisible à l’œil.\nF joue ici le rôle de l’encodeur VAE de Stable Diffusion : peu importe sa nature précise, l’attaque consiste à faire coller les features de l’image empoisonnée à celles de l’ancre, tout en gardant l’image visuellement inchangée.\n\n\n\nÀ gauche : image originale et image empoisonnée, visuellement quasi identiques. Au centre : la perturbation δ amplifiée pour être visible — un bruit structuré, pas du tout aléatoire. À droite : la similarité cosinus dans l’espace de F confirme la collision — poison↔︎chat (≈0.95) dépasse largement chien↔︎chat (≈0.58) et même poison↔︎chien (≈0.73).\n\n\nL’image empoisonnée reste visuellement un chien mais ses features ont migré vers le chat. Injectée en quantité suffisante à l’entraînement d’un modèle texte to image, l’association \"chien\" → features de chien est écrasée : le modèle génère des chats sur le prompt « chien »."
   },
   {
-    "objectID": "projets/nightshade-lightshed.html#lightshed-la-défense-dépoisonnement",
-    "href": "projets/nightshade-lightshed.html#lightshed-la-défense-dépoisonnement",
+    "objectID": "projets/nightshade-lightshed.html#lightshed",
+    "href": "projets/nightshade-lightshed.html#lightshed",
     "title": "Nightshade & LightShed",
-    "section": "3. LightShed — la défense (dépoisonnement)",
-    "text": "3. LightShed — la défense (dépoisonnement)\nHypothèse clé du papier : l’attaquant a accès à l’outil de protection, donc peut fabriquer des paires (image propre, image empoisonnée) et entraîner un détecteur sur l’empreinte de \\delta.\nLe pipeline en deux temps :\n\nDétection par entropie (Entropy Cut-Off) : un auto-encodeur apprend à reconstruire \\delta à partir d’une image suspecte. Sur une image propre, il ne reconstruit (presque) rien ; sur une image empoisonnée, il reconstruit l’empreinte de la perturbation. L’entropie de cette reconstruction sépare nettement les deux classes (TPR/TNR ≈ 1 sur ce mini-dataset).\nNettoyage par soustraction : image propre ≈ image empoisonnée − \\delta reconstruite.\n\n\n\n\nSur un crop empoisonné : image de référence propre, image empoisonnée (SSIM=0.595 par rapport à la référence), la perturbation δ reconstruite par l’auto-encodeur (amplifiée pour visibilité), et l’image nettoyée après soustraction (SSIM remonte à 0.624 — un rapprochement net de la référence)."
-  },
-  {
-    "objectID": "projets/nightshade-lightshed.html#simplifications-assumées-et-limites",
-    "href": "projets/nightshade-lightshed.html#simplifications-assumées-et-limites",
-    "title": "Nightshade & LightShed",
-    "section": "4. Simplifications assumées et limites",
-    "text": "4. Simplifications assumées et limites\nPour rester exécutable sur CPU avec deux images, plusieurs simplifications ont été assumées par rapport aux papiers originaux — le mécanisme algorithmique reste identique, seule l’échelle change.\n\n\n\n\n\n\n\nPapier\nIci\n\n\n\n\nF = encodeur VAE de Stable Diffusion\npetit CNN fixe aléatoire (même mécanisme, F-agnostique)\n\n\nbudget LPIPS p = 0,07\nbudget \\ell_\\infty (projection) — proxy perceptuel\n\n\nespace latent\nespace pixel\n\n\ndataset LAION 600M\ncrops de 2 images\n\n\neffet mesuré par ré-entraînement de SD + score CLIP\ndistance / cosinus dans l’espace de F\n\n\n\nAvec un vrai encodeur SD, \\delta porterait une texture sémantiquement « chat » ; avec un F aléatoire elle ressemble à du bruit structuré — mais la détection LightShed fonctionne pareil, car elle modélise l’empreinte de \\delta, pas son sens.\n\nPour s’approcher des résultats quantitatifs du papier\n\nRemplacer Fnet par l’encodeur VAE d’un vrai modèle (diffusers : AutoencoderKL), et travailler en espace latent plutôt qu’en espace pixel.\nBorner \\delta en LPIPS (p=0,07) avec une méthode de pénalité (équation 2 du papier) au lieu d’une simple projection \\ell_\\infty.\nMesurer l’effet d’attaque par un ré-entraînement / fine-tuning réel, avec un score CLIP chien/chat, plutôt que par le cosinus dans l’espace de F.\nPour LightShed : un dataset de paires beaucoup plus large, un seuil T choisi sur validation via une courbe ROC à FPR fixé, et un bloc d’attention dans l’auto-encodeur."
+    "section": "LightShed",
+    "text": "LightShed\nHypothèse importante du papier : l’attaquant a accès à l’outil de protection donc peut fabriquer des paires (image propre, image empoisonnée) et entraîner un détecteur sur l’empreinte de \\delta.\nLe pipeline :\n\nDétection par entropie (Entropy Cut-Off) : un auto-encodeur apprend à reconstruire \\delta à partir d’une image suspecte. Sur une image propre il ne reconstruit presque rien mais sur une image empoisonnée il reconstruit l’empreinte de la perturbation. L’entropie de cette reconstruction sépare nettement les deux classes (TPR/TNR ≈ 1 sur mon mini-dataset).\nNettoyage par soustraction : image propre ≈ image empoisonnée − \\delta reconstruite.\n\n\n\n\nSur un crop empoisonné : image de référence propre, image empoisonnée (SSIM=0.595 par rapport à la référence), la perturbation δ reconstruite par l’auto-encodeur (amplifiée pour visibilité), et l’image nettoyée après soustraction (SSIM remonte à 0.624 — un rapprochement net de la référence)."
   },
   {
     "objectID": "projets/prior-networks.html",
