@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://alexandre-p-ml.github.io/projets/raidium.html</loc>
-    <lastmod>2026-06-20T13:52:55.352Z</lastmod>
+    <lastmod>2026-07-02T18:19:41.930Z</lastmod>
   </url>
   <url>
     <loc>https://alexandre-p-ml.github.io/projets/parkinson.html</loc>
@@ -15,6 +15,10 @@
   <url>
     <loc>https://alexandre-p-ml.github.io/index.html</loc>
     <lastmod>2026-07-02T17:55:07.064Z</lastmod>
+  </url>
+  <url>
+    <loc>https://alexandre-p-ml.github.io/files/raidium_ens_data_challenge.html</loc>
+    <lastmod>2026-07-02T18:18:58.905Z</lastmod>
   </url>
   <url>
     <loc>https://alexandre-p-ml.github.io/projets/3dgs.html</loc>
