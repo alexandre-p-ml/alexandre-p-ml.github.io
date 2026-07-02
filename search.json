@@ -35,25 +35,39 @@
     "text": "Echecs\n\n\n\n\n\n\nWarningDINOv2 gelé (ViT-S/14) → échec\n\n\n\nExploiter un Vision Transformer auto-supervisé sur 142 M d’images semblait prometteur. Résultat : plafond à ≈ 0,40 en validation locale, contre 0,67 pour le pipeline ResNet-18 sur la même validation. Trois causes probables :\n\nDécalage de domaine majeur : DINOv2 est entraîné sur des photos naturelles, sans rapport avec les coupes scanner en niveaux de gris.\nBackbone gelé : 21 M de paramètres non adaptables donc le décodeur seul ne peut pas combler l’écart.\nRésolution grossière (grille 18×18 patches) inadaptée aux contours fins d’organes et absence du biais inductif local des convolutions.\n\n\n\n\n\n\n\n\n\nWarningMiT-B2 / SegFormer dégelé → échec\n\n\n\nEncodeur hybride convolution-transformer, multi-échelle, cette fois dégelé. Plafond à ≈ 0,495 local, encore loin des 0,672 du ResNet-18. Les Transformers sont plus dépendants du volume de pré-entraînement que les CNN et le décalage ImageNet → CT médical n’est pas rattrapable sur seulement 800 images. La capacité supplémentaire (≈ 30 M de paramètres) s’est retournée en désavantage faute de données.\n\n\n\n\n\n\n\n\nWarningnnU-Net en local → bloqué par le matériel\n\n\n\nSur une RTX 3050 6 Go. La préparation a réussi (conversion, manifeste, split imposé comme premier fold), mais l’entraînement me prenait près d’1 heure par epoch. nnU-Net auto-configure son budget mémoire au-delà de 6 Go. DinoUNet repose sur la même infrastructure.\n\n\n\nRemarques\nLe point le plus important : les classes à très faible présence sont restées à Dice nul malgré une pondération forte. La pondération inversement proportionnelle au Dice par classe a bien amélioré 9 des 12 classes ciblées (l’une est passée de 0,30 à 0,56), mais le gain plateforme global est resté faible (+0,0018) — sur 54 classes, chaque amélioration ne pèse que 1,85 %, et on ne peut pas créer un signal qui n’existe pas avec quelques images d’entraînement seulement."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Alexandre Pottecher",
+    "objectID": "projets/parkinson.html",
+    "href": "projets/parkinson.html",
+    "title": "Prédiction du score UPDRS — Challenge Parkinson",
     "section": "",
-    "text": "Étudiant ingénieur, je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
+    "text": "Data challenge ENS sur la prédiction du score moteur UPDRS chez des patients parkinsoniens. Pipeline itéré de RMSE 11 → 8.9, organisé autour d’un ensemble multi-modèles (LightGBM + XGBoost + CatBoost) et d’une régression ridge en méta-modèle."
   },
   {
-    "objectID": "index.html#à-propos",
-    "href": "index.html#à-propos",
-    "title": "Alexandre Pottecher",
+    "objectID": "projets/parkinson.html#résumé",
+    "href": "projets/parkinson.html#résumé",
+    "title": "Prédiction du score UPDRS — Challenge Parkinson",
     "section": "",
-    "text": "Étudiant ingénieur, je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
+    "text": "Data challenge ENS sur la prédiction du score moteur UPDRS chez des patients parkinsoniens. Pipeline itéré de RMSE 11 → 8.9, organisé autour d’un ensemble multi-modèles (LightGBM + XGBoost + CatBoost) et d’une régression ridge en méta-modèle."
   },
   {
-    "objectID": "index.html#projets",
-    "href": "index.html#projets",
-    "title": "Alexandre Pottecher",
-    "section": "Projets",
-    "text": "Projets\n\n3D Gaussian Splatting — backpropagation rigoureuse\n\nLaTeX · différentielle de Fréchet · VJP/adjoint · DAG · imagerie médicale\n\nDocument mathématique formalisant la rétropropagation dans 3DGS : différentielles de Fréchet, formulation VJP, gradients des quaternions, alpha compositing, contrôle adaptatif de densité. Extension à un modèle simplifié d’imagerie ultrasonore.\n\n\nDirichlet Prior Networks — synthèse mathématique de Malinin & Gales\n\nPyTorch · CIFAR-10 · KL inverse · décomposition d’incertitude\n\n\n\nSegmentation abdominale CT — Challenge Raidium\n\nU-Net · DINOv2 · MiT-B2 · TTA · 55 classes\n\n12 semaines de challenge ENS. Analyse de ma stratégie, des résultats et des échecs.\n\n\nPrédiction du score UPDRS — Challenge Parkinson\n\nLightGBM · XGBoost · CatBoost · stacking Ridge\n\nPipeline ML pour la prédiction du score moteur Parkinson. Modèle auxiliaire d’imputation, correction pharmacocinétique, ensemble multi-modèles avec GroupKFold."
+    "objectID": "projets/parkinson.html#téléchargements",
+    "href": "projets/parkinson.html#téléchargements",
+    "title": "Prédiction du score UPDRS — Challenge Parkinson",
+    "section": "Téléchargements",
+    "text": "Téléchargements\n📓 Notebook complet"
+  },
+  {
+    "objectID": "projets/parkinson.html#contributions-principales",
+    "href": "projets/parkinson.html#contributions-principales",
+    "title": "Prédiction du score UPDRS — Challenge Parkinson",
+    "section": "Contributions principales",
+    "text": "Contributions principales\n\nModèle auxiliaire d’imputation off-medication. Un LightGBM séparé prédit les scores manquants en condition OFF à partir des autres features ; ses prédictions sont injectées comme features dans le modèle principal.\nAgrégats globaux par patient. Moyennes, variances et tendances temporelles calculées sur la trajectoire complète de chaque patient (et non sur la seule observation courante).\nCorrection pharmacocinétique des scores ON. Modélisation simple de la demi-vie de la levodopa pour ajuster le temps écoulé depuis la dernière prise.\nValidation par GroupKFold patient. Aucun patient ne se retrouve simultanément en train et en validation, évitant la fuite par identité."
+  },
+  {
+    "objectID": "projets/parkinson.html#stacking",
+    "href": "projets/parkinson.html#stacking",
+    "title": "Prédiction du score UPDRS — Challenge Parkinson",
+    "section": "Stacking",
+    "text": "Stacking\n\n\\hat{y}_{\\text{final}} = \\mathrm{Ridge}\\big(\n\\hat{y}_{\\text{LGBM}}, \\hat{y}_{\\text{XGB}}, \\hat{y}_{\\text{Cat}}, \\boldsymbol{x}_{\\text{meta}}\n\\big)\n\noù \\boldsymbol{x}_{\\text{meta}} contient les agrégats patient et l’écart à la moyenne population.\n\n\n\n\n\n\nNoteInférence autorégressive : abandonnée\n\n\n\nJ’ai testé une inférence autorégressive (le score prédit à t devient feature à t+1), théoriquement séduisante mais empiriquement contre-productive : accumulation des erreurs sur les longues séquences, RMSE dégradée de ~0.3."
   },
   {
     "objectID": "projets/3dgs.html",
@@ -89,6 +103,69 @@
     "title": "Mathématiques dans le 3D Gaussian Splatting",
     "section": "Contenu mathématique abordé",
     "text": "Contenu mathématique abordé\n\nCadre fonctionnel. Variétés de Gaussiennes 3D paramétrées par (\\mu, q, s, \\alpha, c) où q \\in \\mathbb{H} est un quaternion unitaire.\nDifférentielles de Fréchet des opérations clés : projection perspective, conversion quaternion → matrice de rotation, construction de la covariance \\Sigma = R S S^\\top R^\\top.\nAdjoints / VJP. Pour chaque opération f : E \\to F, calcul de f'(x)^* : F^* \\to E^* permettant la propagation des cotangentes en arrière sur le DAG.\nAlpha compositing. Adjoint de la composition récursive C = \\sum_i c_i \\alpha_i T_i avec T_i = \\prod_{j&lt;i}(1-\\alpha_j).\nContrôle adaptatif de densité. Critères de split/clone et leur cohérence avec les gradients accumulés.\nExtension imagerie médicale. Modèle simplifié d’acquisition ultrasonore."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Alexandre Pottecher",
+    "section": "",
+    "text": "Étudiant ingénieur M1 Math-Info. Je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
+  },
+  {
+    "objectID": "index.html#à-propos",
+    "href": "index.html#à-propos",
+    "title": "Alexandre Pottecher",
+    "section": "",
+    "text": "Étudiant ingénieur M1 Math-Info. Je m’interesse à la vision par ordinateur appliquée à l’imagerie médicale, au deep learning probabiliste et génératif, et a la formalisation mathématique d’algorithmes de Machine Learning.\nCette page rassemble mes projets : code (notebooks Jupyter) et documents mathématiques (PDF)."
+  },
+  {
+    "objectID": "index.html#projets",
+    "href": "index.html#projets",
+    "title": "Alexandre Pottecher",
+    "section": "Projets",
+    "text": "Projets\n\n3D Gaussian Splatting — backpropagation rigoureuse\n\nLaTeX · différentielle de Fréchet · VJP/adjoint · DAG · imagerie médicale\n\nDocument mathématique formalisant la rétropropagation dans 3DGS : différentielles de Fréchet, formulation VJP, gradients des quaternions, alpha compositing, contrôle adaptatif de densité. Extension à un modèle simplifié d’imagerie ultrasonore.\n\n\nDirichlet Prior Networks — reproduction Malinin & Gales\n\nPyTorch · CIFAR-10 · KL inverse · décomposition d’incertitude\n\ntest\n\n\nNightshade & LightShed — empoisonnement et dépoisonnement\n\nsécurité ML · adversarial · attaque/défense · vision\n\nReproduction pédagogique de l’attaque Nightshade (collision de features sous budget perceptuel) et de sa défense LightShed (détection par entropie + soustraction).\n\n\nSegmentation abdominale CT — Challenge Raidium\n\nU-Net · DINOv2 · MiT-B2 · TTA · 55 classes\n\n12 semaines de challenge ENS. Analyse de ma stratégie, des résultats et des échecs.\n\n\nPrédiction du score UPDRS — Challenge Parkinson\n\nLightGBM · XGBoost · CatBoost · stacking Ridge\n\nPipeline ML pour la prédiction du score moteur Parkinson. Modèle auxiliaire d’imputation, correction pharmacocinétique, ensemble multi-modèles avec GroupKFold."
+  },
+  {
+    "objectID": "projets/nightshade-lightshed.html",
+    "href": "projets/nightshade-lightshed.html",
+    "title": "Nightshade & LightShed",
+    "section": "",
+    "text": "📓 Télécharger le notebook\n\n\n\n\n\n\nWarningAvertissement\n\n\n\nLes deux techniques présentées touchent au droit d’auteur et à la protection des artistes face aux modèles génératifs. Ce code est purement pédagogique, destiné à comprendre les mécanismes décrits dans les papiers de recherche correspondants."
+  },
+  {
+    "objectID": "projets/nightshade-lightshed.html#téléchargements",
+    "href": "projets/nightshade-lightshed.html#téléchargements",
+    "title": "Nightshade & LightShed",
+    "section": "",
+    "text": "📓 Télécharger le notebook\n\n\n\n\n\n\nWarningAvertissement\n\n\n\nLes deux techniques présentées touchent au droit d’auteur et à la protection des artistes face aux modèles génératifs. Ce code est purement pédagogique, destiné à comprendre les mécanismes décrits dans les papiers de recherche correspondants."
+  },
+  {
+    "objectID": "projets/nightshade-lightshed.html#le-principe-deux-papiers-deux-rôles",
+    "href": "projets/nightshade-lightshed.html#le-principe-deux-papiers-deux-rôles",
+    "title": "Nightshade & LightShed",
+    "section": "1. Le principe — deux papiers, deux rôles",
+    "text": "1. Le principe — deux papiers, deux rôles\nReproduction pédagogique de deux travaux complémentaires : l’un attaque, l’autre défend.\n\nNightshade (Shan et al., IEEE S&P 2024) — attaque. Empoisonnement « prompt-specific » des modèles texte→image. On part d’une image d’un concept attaqué C et on lui ajoute une perturbation imperceptible \\delta qui pousse ses features vers celles d’une image ancre d’un autre concept A.\nLightShed (Foerster et al., USENIX Security 2025) — défense côté attaquant. Un auto-encodeur apprend à reconstruire la perturbation \\delta injectée ; son entropie sert de détecteur, puis on soustrait \\delta pour récupérer l’image propre.\n\n\n\n\nLes deux images de travail : C = chien (concept attaqué), A = chat (ancre vers laquelle on pousse les features)."
+  },
+  {
+    "objectID": "projets/nightshade-lightshed.html#nightshade-lattaque",
+    "href": "projets/nightshade-lightshed.html#nightshade-lattaque",
+    "title": "Nightshade & LightShed",
+    "section": "2. Nightshade — l’attaque",
+    "text": "2. Nightshade — l’attaque\nLe cœur de la méthode (équations 1–2 du papier) :\n\n\\min_{\\delta}\\ \\big\\lVert F(x_t+\\delta)-F(x^{a})\\big\\rVert_2^2\n\\quad \\text{s.c.}\\ \\lVert\\delta\\rVert \\le p\n\noù F est l’extracteur de features, x_t l’image du concept attaqué, x^a l’ancre, et p le budget perceptuel sous lequel la perturbation reste invisible à l’œil.\nF joue ici le rôle de l’encodeur VAE de Stable Diffusion : peu importe sa nature précise, l’attaque consiste à faire coller les features de l’image empoisonnée à celles de l’ancre, tout en gardant l’image visuellement inchangée.\n\n\n\nÀ gauche : image originale et image empoisonnée, visuellement quasi identiques. Au centre : la perturbation δ amplifiée pour être visible — un bruit structuré, pas du tout aléatoire. À droite : la similarité cosinus dans l’espace de F confirme la collision — poison↔︎chat (≈0.95) dépasse largement chien↔︎chat (≈0.58) et même poison↔︎chien (≈0.73).\n\n\nL’image empoisonnée reste visuellement un chien, mais ses features ont migré vers le chat. Injectée en quantité suffisante à l’entraînement d’un modèle texte→image, l’association \"chien\" → features de chien est écrasée : le modèle génère des chats sur le prompt « chien »."
+  },
+  {
+    "objectID": "projets/nightshade-lightshed.html#lightshed-la-défense-dépoisonnement",
+    "href": "projets/nightshade-lightshed.html#lightshed-la-défense-dépoisonnement",
+    "title": "Nightshade & LightShed",
+    "section": "3. LightShed — la défense (dépoisonnement)",
+    "text": "3. LightShed — la défense (dépoisonnement)\nHypothèse clé du papier : l’attaquant a accès à l’outil de protection, donc peut fabriquer des paires (image propre, image empoisonnée) et entraîner un détecteur sur l’empreinte de \\delta.\nLe pipeline en deux temps :\n\nDétection par entropie (Entropy Cut-Off) : un auto-encodeur apprend à reconstruire \\delta à partir d’une image suspecte. Sur une image propre, il ne reconstruit (presque) rien ; sur une image empoisonnée, il reconstruit l’empreinte de la perturbation. L’entropie de cette reconstruction sépare nettement les deux classes (TPR/TNR ≈ 1 sur ce mini-dataset).\nNettoyage par soustraction : image propre ≈ image empoisonnée − \\delta reconstruite.\n\n\n\n\nSur un crop empoisonné : image de référence propre, image empoisonnée (SSIM=0.595 par rapport à la référence), la perturbation δ reconstruite par l’auto-encodeur (amplifiée pour visibilité), et l’image nettoyée après soustraction (SSIM remonte à 0.624 — un rapprochement net de la référence)."
+  },
+  {
+    "objectID": "projets/nightshade-lightshed.html#simplifications-assumées-et-limites",
+    "href": "projets/nightshade-lightshed.html#simplifications-assumées-et-limites",
+    "title": "Nightshade & LightShed",
+    "section": "4. Simplifications assumées et limites",
+    "text": "4. Simplifications assumées et limites\nPour rester exécutable sur CPU avec deux images, plusieurs simplifications ont été assumées par rapport aux papiers originaux — le mécanisme algorithmique reste identique, seule l’échelle change.\n\n\n\n\n\n\n\nPapier\nIci\n\n\n\n\nF = encodeur VAE de Stable Diffusion\npetit CNN fixe aléatoire (même mécanisme, F-agnostique)\n\n\nbudget LPIPS p = 0,07\nbudget \\ell_\\infty (projection) — proxy perceptuel\n\n\nespace latent\nespace pixel\n\n\ndataset LAION 600M\ncrops de 2 images\n\n\neffet mesuré par ré-entraînement de SD + score CLIP\ndistance / cosinus dans l’espace de F\n\n\n\nAvec un vrai encodeur SD, \\delta porterait une texture sémantiquement « chat » ; avec un F aléatoire elle ressemble à du bruit structuré — mais la détection LightShed fonctionne pareil, car elle modélise l’empreinte de \\delta, pas son sens.\n\nPour s’approcher des résultats quantitatifs du papier\n\nRemplacer Fnet par l’encodeur VAE d’un vrai modèle (diffusers : AutoencoderKL), et travailler en espace latent plutôt qu’en espace pixel.\nBorner \\delta en LPIPS (p=0,07) avec une méthode de pénalité (équation 2 du papier) au lieu d’une simple projection \\ell_\\infty.\nMesurer l’effet d’attaque par un ré-entraînement / fine-tuning réel, avec un score CLIP chien/chat, plutôt que par le cosinus dans l’espace de F.\nPour LightShed : un dataset de paires beaucoup plus large, un seuil T choisi sur validation via une courbe ROC à FPR fixé, et un bloc d’attention dans l’auto-encodeur."
   },
   {
     "objectID": "projets/prior-networks.html",
