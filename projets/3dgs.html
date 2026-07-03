@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-01-01">
 
-<title>Mathématiques dans le 3D Gaussian Splatting – Alexandre Pottecher</title>
+<title>Mathematics of 3D Gaussian Splatting – Alexandre Pottecher</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -107,49 +107,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -229,10 +186,9 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#résumé" id="toc-résumé" class="nav-link active" data-scroll-target="#résumé">Résumé</a></li>
-  <li><a href="#téléchargements" id="toc-téléchargements" class="nav-link" data-scroll-target="#téléchargements">Téléchargements</a></li>
-  <li><a href="#aperçu" id="toc-aperçu" class="nav-link" data-scroll-target="#aperçu">Aperçu</a></li>
-  <li><a href="#contenu-mathématique-abordé" id="toc-contenu-mathématique-abordé" class="nav-link" data-scroll-target="#contenu-mathématique-abordé">Contenu mathématique abordé</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#download" id="toc-download" class="nav-link" data-scroll-target="#download">Download</a></li>
+  <li><a href="#preview" id="toc-preview" class="nav-link" data-scroll-target="#preview">Preview</a></li>
   </ul>
 </nav>
     </div>
@@ -241,8 +197,8 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Mathématiques dans le 3D Gaussian Splatting</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-<p class="subtitle lead">Formalisation mathématique de la rétropropagation</p>
+<div class="quarto-title-block"><div><h1 class="title">Mathematics of 3D Gaussian Splatting</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<p class="subtitle lead">A Mathematical Derivation of the Backpropagation Algorithm</p>
 </div>
 
 
@@ -265,28 +221,17 @@ window.Quarto = {
 </header>
 
 
-<section id="résumé" class="level2">
-<h2 class="anchored" data-anchor-id="résumé">Résumé</h2>
-<p>Ce document propose une dérivation rigoureuse de la rétropropagation dans 3D Gaussian Splatting (3DGS). Je distingue explicitement les cotangentes propagées sur le DAG de calcul de la loss finale et formalise chaque opération.</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This document presents a rigorous mathematical derivation of the backpropagation algorithm in 3D Gaussian Splatting (3DGS). It explicitly distinguishes the cotangents propagated through the computational graph of the final loss and formalizes every operation involved in the backward pass.</p>
 </section>
-<section id="téléchargements" class="level2">
-<h2 class="anchored" data-anchor-id="téléchargements">Téléchargements</h2>
-<p><a class="download-btn" href="../files/synthese_math_3DGS.pdf" download="">📄 Télécharger le PDF</a></p>
+<section id="download" class="level2">
+<h2 class="anchored" data-anchor-id="download">Download</h2>
+<p><a class="download-btn" href="../files/synthese_math_3DGS.pdf" download="">📄 Download PDF</a></p>
 </section>
-<section id="aperçu" class="level2">
-<h2 class="anchored" data-anchor-id="aperçu">Aperçu</h2>
+<section id="preview" class="level2">
+<h2 class="anchored" data-anchor-id="preview">Preview</h2>
 <embed src="../files/synthese_math_3DGS.pdf" type="application/pdf" width="100%" height="600px">
-</section>
-<section id="contenu-mathématique-abordé" class="level2">
-<h2 class="anchored" data-anchor-id="contenu-mathématique-abordé">Contenu mathématique abordé</h2>
-<ul>
-<li>Cadre fonctionnel. Variétés de Gaussiennes 3D paramétrées par <span class="math inline">(\mu, q, s, \alpha, c)</span> où <span class="math inline">q \in \mathbb{H}</span> est un quaternion unitaire.</li>
-<li>Différentielles de Fréchet des opérations clés : projection perspective, conversion quaternion → matrice de rotation, construction de la covariance <span class="math inline">\Sigma = R S S^\top R^\top</span>.</li>
-<li>Adjoints / VJP. Pour chaque opération <span class="math inline">f : E \to F</span>, calcul de <span class="math inline">f'(x)^* : F^* \to E^*</span> permettant la propagation des cotangentes en arrière sur le DAG.</li>
-<li>Alpha compositing. Adjoint de la composition récursive <span class="math inline">C = \sum_i c_i \alpha_i T_i</span> avec <span class="math inline">T_i = \prod_{j&lt;i}(1-\alpha_j)</span>.</li>
-<li>Contrôle adaptatif de densité. Critères de split/clone et leur cohérence avec les gradients accumulés.</li>
-<li>Extension imagerie médicale. Modèle simplifié d’acquisition ultrasonore.</li>
-</ul>
 
 
 <!-- -->
@@ -751,45 +696,26 @@ window.Quarto = {
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Mathématiques dans le 3D Gaussian Splatting"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Formalisation mathématique de la rétropropagation"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Mathematics of 3D Gaussian Splatting"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "A Mathematical Derivation of the Backpropagation Algorithm"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "Juin 2026"</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> []</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Résumé</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Ce document propose une dérivation rigoureuse de la rétropropagation dans</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>3D Gaussian Splatting (3DGS). Je distingue explicitement les</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>cotangentes propagées sur le DAG de calcul de la loss finale et formalise</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>chaque opération.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>This document presents a rigorous mathematical derivation of the backpropagation algorithm in 3D Gaussian Splatting (3DGS). It explicitly distinguishes the cotangents propagated through the computational graph of the final loss and formalizes every operation involved in the backward pass.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Download</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Téléchargements</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> class</span><span class="op">=</span><span class="st">"download-btn"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"../files/synthese_math_3DGS.pdf"</span><span class="ot"> download</span><span class="dt">&gt;</span>📄 Télécharger le PDF<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Aperçu</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">embed</span><span class="ot"> src</span><span class="op">=</span><span class="st">"../files/synthese_math_3DGS.pdf"</span><span class="ot"> type</span><span class="op">=</span><span class="st">"application/pdf"</span><span class="ot"> width</span><span class="op">=</span><span class="st">"100%"</span><span class="ot"> height</span><span class="op">=</span><span class="st">"600px"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Contenu mathématique abordé</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cadre fonctionnel. Variétés de Gaussiennes 3D paramétrées par</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  $(\mu, q, s, \alpha, c)$ où $q \in \mathbb{H}$ est un quaternion unitaire.</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Différentielles de Fréchet des opérations clés : projection perspective,</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  conversion quaternion → matrice de rotation, construction de la covariance</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  $\Sigma = R S S^\top R^\top$.</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Adjoints / VJP. Pour chaque opération $f : E \to F$, calcul de</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  $f'(x)^* : F^* \to E^*$ permettant la propagation des cotangentes en arrière</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  sur le DAG.</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Alpha compositing. Adjoint de la composition récursive</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  $C = \sum_i c_i \alpha_i T_i$ avec $T_i = \prod_{j&lt;i}(1-\alpha_j)$.</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Contrôle adaptatif de densité. Critères de split/clone et leur cohérence</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  avec les gradients accumulés.</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Extension imagerie médicale. Modèle simplifié d'acquisition ultrasonore.</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> class</span><span class="op">=</span><span class="st">"download-btn"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"../files/synthese_math_3DGS.pdf"</span><span class="ot"> download</span><span class="dt">&gt;</span>📄 Download PDF<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Preview</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">embed</span><span class="ot"> src</span><span class="op">=</span><span class="st">"../files/synthese_math_3DGS.pdf"</span><span class="ot"> type</span><span class="op">=</span><span class="st">"application/pdf"</span><span class="ot"> width</span><span class="op">=</span><span class="st">"100%"</span><span class="ot"> height</span><span class="op">=</span><span class="st">"600px"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
