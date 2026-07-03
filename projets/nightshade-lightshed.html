@@ -229,8 +229,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#téléchargements" id="toc-téléchargements" class="nav-link active" data-scroll-target="#téléchargements">Téléchargements</a></li>
-  <li><a href="#le-principe" id="toc-le-principe" class="nav-link" data-scroll-target="#le-principe">Le principe</a></li>
+  <li><a href="#download" id="toc-download" class="nav-link active" data-scroll-target="#download">Download</a></li>
+  <li><a href="#principle" id="toc-principle" class="nav-link" data-scroll-target="#principle">Principle</a></li>
   <li><a href="#nightshade" id="toc-nightshade" class="nav-link" data-scroll-target="#nightshade">Nightshade</a></li>
   <li><a href="#lightshed" id="toc-lightshed" class="nav-link" data-scroll-target="#lightshed">LightShed</a></li>
   </ul>
@@ -242,12 +242,8 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">Nightshade &amp; LightShed</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-<p class="subtitle lead">Empoisonnement de modèles texte to image et dépoisonnement, implémentation minimaliste</p>
-  <div class="quarto-categories">
-    <div class="quarto-category">vision</div>
-    <div class="quarto-category">adversarial</div>
-  </div>
-  </div>
+<p class="subtitle lead">Text-to-Image Model Poisoning and Unpoisoning, Minimal Implementation</p>
+</div>
 
 
 
@@ -269,53 +265,53 @@ window.Quarto = {
 </header>
 
 
-<section id="téléchargements" class="level2">
-<h2 class="anchored" data-anchor-id="téléchargements">Téléchargements</h2>
-<p><a class="download-btn" href="../files/nightshade-lightshed.ipynb" download="">📓 Télécharger le notebook</a></p>
-<p>Compte rendu de mon mini stage de recherche à l’Applied Artificial Intelligence Laboratory de Penn Sate University (Aout-Decembre 2025).</p>
+<section id="download" class="level2">
+<h2 class="anchored" data-anchor-id="download">Download</h2>
+<p><a class="download-btn" href="../files/nightshade-lightshed.ipynb" download="">📓 Download notebook</a></p>
+<p>Research report from my mini research internship at the Applied Artificial Intelligence Laboratory, Penn State University (August–December 2025).</p>
 </section>
-<section id="le-principe" class="level2">
-<h2 class="anchored" data-anchor-id="le-principe">Le principe</h2>
+<section id="principle" class="level2">
+<h2 class="anchored" data-anchor-id="principle">Principle</h2>
 <ul>
-<li><strong>Nightshade</strong> (Shan et al., IEEE S&amp;P 2024) l’attaque. Empoisonnement « prompt-specific » des modèles texte to image. On part d’une image d’un concept attaqué <span class="math inline">C</span> et on lui ajoute une perturbation imperceptible <span class="math inline">\delta</span> qui pousse ses features vers celles d’une image ancre d’un autre concept <span class="math inline">A</span>.</li>
-<li><strong>LightShed</strong> (Foerster et al., USENIX Security 2025). Un auto-encodeur apprend à reconstruire la perturbation <span class="math inline">\delta</span> injectée : son entropie sert de détecteur, puis on soustrait <span class="math inline">\delta</span> pour récupérer l’image propre.</li>
+<li>Nightshade (Shan et al., IEEE S&amp;P 2024) is the attack method. It performs prompt-specific poisoning of text-to-image models. Starting from an image representing a target concept <span class="math inline">C</span>, an imperceptible perturbation <span class="math inline">\delta</span> is added, pushing its features toward those of a reference image representing another concept <span class="math inline">A</span>.</li>
+<li>LightShed (Foerster et al., USENIX Security 2025) trains an autoencoder to reconstruct the injected perturbation <span class="math inline">\delta</span>. Its entropy is used as a detection signal, and <span class="math inline">\delta</span> is then subtracted to recover the clean image.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/nightshade-images.png" class="img-fluid figure-img" style="width:85.0%"></p>
-<figcaption>Les deux images de travail : <span class="math inline">C</span> = chien (concept attaqué), <span class="math inline">A</span> = chat (ancre vers laquelle on pousse les features).</figcaption>
+<figcaption>The two working images: <span class="math inline">C</span> = dog (targeted concept), <span class="math inline">A</span> = cat (anchor concept toward which features are pushed).</figcaption>
 </figure>
 </div>
 </section>
 <section id="nightshade" class="level2">
 <h2 class="anchored" data-anchor-id="nightshade">Nightshade</h2>
-<p>Le cœur de la méthode (équations 1–2 du papier) :</p>
+<p>The core of the method (Equations 1–2 in the paper):</p>
 <p><span class="math display">
 \min_{\delta}\ \big\lVert F(x_t+\delta)-F(x^{a})\big\rVert_2^2
 \quad \text{s.c.}\ \lVert\delta\rVert \le p
 </span></p>
-<p>où <span class="math inline">F</span> est l’extracteur de features, <span class="math inline">x_t</span> l’image du concept attaqué, <span class="math inline">x^a</span> l’ancre, et <span class="math inline">p</span> le budget perceptuel sous lequel la perturbation reste invisible à l’œil.</p>
-<p><code>F</code> joue ici le rôle de l’encodeur VAE de Stable Diffusion : peu importe sa nature précise, l’attaque consiste à faire coller les features de l’image empoisonnée à celles de l’ancre, tout en gardant l’image visuellement inchangée.</p>
+<p>where <span class="math inline">F</span> is the feature extractor, <span class="math inline">x_t</span> is the image of the target (attacked) concept, <span class="math inline">x^a</span> is the anchor image and <span class="math inline">p</span> is the perceptual budget under which the perturbation remains imperceptible to a human eye.</p>
+<p>Here <span class="math inline">F</span> plays the role of the Stable Diffusion VAE encoder: regardless of its exact nature, the attack aims to align the features of the poisoned image with those of the anchor while keeping the image visually unchanged.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/nightshade-attack.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>À gauche : image originale et image empoisonnée, visuellement quasi identiques. Au centre : la perturbation δ amplifiée pour être visible (un bruit structuré pas du tout aléatoire). À droite : la similarité cosinus dans l’espace de F confirme la collision, poison/chat (≈0.95) dépasse largement chien/chat (≈0.58) et même poison/chien (≈0.73).</figcaption>
+<figcaption>Left: original image and poisoned image, which are visually almost identical. Center: the perturbation δ, amplified for visibility (a structured, non-random noise pattern). Right: cosine similarity in the feature space of <span class="math inline">F</span> confirms the collision; poison/cat (≈0.95) is much higher than dog/cat (≈0.58) and even poison/dog (≈0.73).</figcaption>
 </figure>
 </div>
-<p>L’image empoisonnée reste visuellement un chien mais ses features ont migré vers le chat. Injectée en quantité suffisante à l’entraînement d’un modèle texte to image, l’association <code>"chien" → features de chien</code> est écrasée : le modèle génère des chats sur le prompt « chien ».</p>
+<p>he poisoned image remains visually a dog, but its features have migrated toward the cat. When injected in sufficient quantity during the training of a text-to-image model, the association “dog” / dog features is overwritten : the model begins to generate cats in response to the prompt “dog”</p>
 </section>
 <section id="lightshed" class="level2">
 <h2 class="anchored" data-anchor-id="lightshed">LightShed</h2>
-<p>Hypothèse importante du papier : l’attaquant a accès à l’outil de protection donc peut fabriquer des paires (image propre, image empoisonnée) et entraîner un détecteur sur l’empreinte de <span class="math inline">\delta</span>.</p>
-<p>Le pipeline :</p>
+<p>A key assumption of the paper is that the attacker has access to the defense tool and can therefore construct (clean image, poisoned image) pairs to train a detector on the fingerprint of <span class="math inline">\delta</span>.</p>
+<p>The pipeline is as follows:</p>
 <ol type="1">
-<li>Détection par entropie : un auto-encodeur apprend à reconstruire <span class="math inline">\delta</span> à partir d’une image suspecte. Sur une image propre il ne reconstruit presque rien mais sur une image empoisonnée il reconstruit l’empreinte de la perturbation. L’entropie de cette reconstruction sépare nettement les deux classes (TPR/TNR ≈ 1 sur mon mini-dataset).</li>
-<li>Nettoyage par soustraction : image propre ≈ image empoisonnée − <span class="math inline">\delta</span> reconstruite.</li>
+<li>Entropy-based detection: an autoencoder is trained to reconstruct <span class="math inline">\delta</span> from a suspicious image. On clean images, it reconstructs almost nothing, whereas on poisoned images it successfully recovers the perturbation’s fingerprint. The entropy of this reconstruction clearly separates the two classes (TPR/TNR ≈ 1 on my small dataset).</li>
+<li>Denoising by subtraction: clean image ≈ poisoned image − reconstructed <span class="math inline">\delta</span>.</li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/lightshed-defense.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>Sur un crop empoisonné : image de référence propre, image empoisonnée (SSIM=0.595 par rapport à la référence), la perturbation δ reconstruite par l’auto-encodeur (amplifiée pour visibilité), et l’image nettoyée après soustraction (SSIM remonte à 0.624 — un rapprochement net de la référence).</figcaption>
+<figcaption>On a poisoned crop: clean reference image, poisoned image (SSIM = 0.595 with respect to the reference), the perturbation δ reconstructed by the autoencoder (amplified for visibility), and the cleaned image after subtraction (SSIM increases to 0.624; a clear improvement toward the reference).</figcaption>
 </figure>
 </div>
 
@@ -783,72 +779,52 @@ window.Quarto = {
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Nightshade &amp; LightShed"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Empoisonnement de modèles texte to image et dépoisonnement, implémentation minimaliste"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Text-to-Image Model Poisoning and Unpoisoning, Minimal Implementation"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "Decembre 2025"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [vision, adversarial]</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> []</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Téléchargements</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Download</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> class</span><span class="op">=</span><span class="st">"download-btn"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"../files/nightshade-lightshed.ipynb"</span><span class="ot"> download</span><span class="dt">&gt;</span>📓 Télécharger le notebook<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> class</span><span class="op">=</span><span class="st">"download-btn"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"../files/nightshade-lightshed.ipynb"</span><span class="ot"> download</span><span class="dt">&gt;</span>📓 Download notebook<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Compte rendu de mon mini stage de recherche à l'Applied Artificial Intelligence Laboratory de Penn Sate University (Aout-Decembre 2025).</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Research report from my mini research internship at the Applied Artificial Intelligence Laboratory, Penn State University (August–December 2025).</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Le principe</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Nightshade** (Shan et al., IEEE S&amp;P 2024) l'attaque. Empoisonnement</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  « prompt-specific » des modèles texte to image. On part d'une image d'un concept</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  attaqué $C$ et on lui ajoute une perturbation imperceptible $\delta$ qui pousse</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  ses features vers celles d'une image ancre d'un autre concept $A$.</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**LightShed** (Foerster et al., USENIX Security 2025). Un auto-encodeur apprend à reconstruire la perturbation $\delta$</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  injectée : son entropie sert de détecteur, puis on soustrait $\delta$</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  pour récupérer l'image propre.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Principle</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nightshade (Shan et al., IEEE S&amp;P 2024) is the attack method. It performs prompt-specific poisoning of text-to-image models. Starting from an image representing a target concept $C$, an imperceptible perturbation $\delta$ is added, pushing its features toward those of a reference image representing another concept $A$.</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LightShed (Foerster et al., USENIX Security 2025) trains an autoencoder to reconstruct the injected perturbation $\delta$. Its entropy is used as a detection signal, and $\delta$ is then subtracted to recover the clean image.</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="al">![The two working images: $C$ = dog (targeted concept), $A$ = cat (anchor concept toward which features are pushed).](../img/nightshade-images.png)</span>{fig-align="center" width="85%"}</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Nightshade</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="al">![Les deux images de travail : $C$ = chien (concept attaqué), $A$ = chat (ancre vers laquelle on pousse les features).](../img/nightshade-images.png)</span>{fig-align="center" width="85%"}</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>The core of the method (Equations 1–2 in the paper):</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Nightshade</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>Le cœur de la méthode (équations 1–2 du papier) :</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>\min_{\delta}\ \big\lVert F(x_t+\delta)-F(x^{a})\big\rVert_2^2</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>\quad \text{s.c.}\ \lVert\delta\rVert \le p</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>\min_{\delta}\ \big\lVert F(x_t+\delta)-F(x^{a})\big\rVert_2^2</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>\quad \text{s.c.}\ \lVert\delta\rVert \le p</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>where $F$ is the feature extractor, $x_t$ is the image of the target (attacked) concept, $x^a$ is the anchor image and $p$ is the perceptual budget under which the perturbation remains imperceptible to a human eye.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Here $F$ plays the role of the Stable Diffusion VAE encoder: regardless of its exact nature, the attack aims to align the features of the poisoned image with those of the anchor while keeping the image visually unchanged.</span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>où $F$ est l'extracteur de features, $x_t$ l'image du concept attaqué, $x^a$</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>l'ancre, et $p$ le budget perceptuel sous lequel la perturbation reste</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>invisible à l'œil.</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="al">![Left: original image and poisoned image, which are visually almost identical. Center: the perturbation δ, amplified for visibility (a structured, non-random noise pattern). Right: cosine similarity in the feature space of $F$ confirms the collision; poison/cat (≈0.95) is much higher than dog/cat (≈0.58) and even poison/dog (≈0.73).](../img/nightshade-attack.png)</span>{fig-align="center" width="100%"}</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>he poisoned image remains visually a dog, but its features have migrated toward the cat. When injected in sufficient quantity during the training of a text-to-image model, the association "dog" / dog features is overwritten : the model begins to generate cats in response to the prompt “dog”</span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="in">`F`</span> joue ici le rôle de l'encodeur VAE de Stable Diffusion : peu importe sa</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>nature précise, l'attaque consiste à faire coller les features de l'image</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>empoisonnée à celles de l'ancre, tout en gardant l'image visuellement</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>inchangée.</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="al">![À gauche : image originale et image empoisonnée, visuellement quasi identiques. Au centre : la perturbation δ amplifiée pour être visible (un bruit structuré pas du tout aléatoire). À droite : la similarité cosinus dans l'espace de F confirme la collision, poison/chat (≈0.95) dépasse largement chien/chat (≈0.58) et même poison/chien (≈0.73).](../img/nightshade-attack.png)</span>{fig-align="center" width="100%"}</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>L'image empoisonnée reste visuellement un chien mais ses features ont</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>migré vers le chat. Injectée en quantité suffisante à l'entraînement d'un</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>modèle texte to image, l'association <span class="in">`"chien" → features de chien`</span> est écrasée :</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>le modèle génère des chats sur le prompt « chien ».</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## LightShed</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>Hypothèse importante du papier : l'attaquant a accès à l'outil de protection donc</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>peut fabriquer des paires (image propre, image empoisonnée) et entraîner</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>un détecteur sur l'empreinte de $\delta$.</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>Le pipeline :</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Détection par entropie : un auto-encodeur apprend à</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>   reconstruire $\delta$ à partir d'une image suspecte. Sur une image propre</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>   il ne reconstruit presque rien mais sur une image empoisonnée il</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>   reconstruit l'empreinte de la perturbation. L'entropie de cette</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>   reconstruction sépare nettement les deux classes (TPR/TNR ≈ 1 sur mon</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>   mini-dataset).</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Nettoyage par soustraction : image propre ≈ image empoisonnée −</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>   $\delta$ reconstruite.</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="al">![Sur un crop empoisonné : image de référence propre, image empoisonnée (SSIM=0.595 par rapport à la référence), la perturbation δ reconstruite par l'auto-encodeur (amplifiée pour visibilité), et l'image nettoyée après soustraction (SSIM remonte à 0.624 — un rapprochement net de la référence).](../img/lightshed-defense.png)</span>{fig-align="center" width="100%"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## LightShed</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>A key assumption of the paper is that the attacker has access to the defense tool and can therefore construct (clean image, poisoned image) pairs to train a detector on the fingerprint of $\delta$.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>The pipeline is as follows:</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Entropy-based detection: an autoencoder is trained to reconstruct $\delta$ from a suspicious image. On clean images, it reconstructs almost nothing, whereas on poisoned images it successfully recovers the perturbation’s fingerprint. The entropy of this reconstruction clearly separates the two classes (TPR/TNR ≈ 1 on my small dataset).</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Denoising by subtraction: clean image ≈ poisoned image − reconstructed $\delta$.</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="al">![On a poisoned crop: clean reference image, poisoned image (SSIM = 0.595 with respect to the reference), the perturbation δ reconstructed by the autoencoder (amplified for visibility), and the cleaned image after subtraction (SSIM increases to 0.624; a clear improvement toward the reference).](../img/lightshed-defense.png)</span>{fig-align="center" width="100%"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

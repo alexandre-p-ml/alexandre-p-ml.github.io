@@ -221,35 +221,35 @@
     "href": "projets/nightshade-lightshed.html",
     "title": "Nightshade & LightShed",
     "section": "",
-    "text": "📓 Télécharger le notebook\nCompte rendu de mon mini stage de recherche à l’Applied Artificial Intelligence Laboratory de Penn Sate University (Aout-Decembre 2025)."
+    "text": "📓 Download notebook\nResearch report from my mini research internship at the Applied Artificial Intelligence Laboratory, Penn State University (August–December 2025)."
   },
   {
-    "objectID": "projets/nightshade-lightshed.html#téléchargements",
-    "href": "projets/nightshade-lightshed.html#téléchargements",
+    "objectID": "projets/nightshade-lightshed.html#download",
+    "href": "projets/nightshade-lightshed.html#download",
     "title": "Nightshade & LightShed",
     "section": "",
-    "text": "📓 Télécharger le notebook\nCompte rendu de mon mini stage de recherche à l’Applied Artificial Intelligence Laboratory de Penn Sate University (Aout-Decembre 2025)."
+    "text": "📓 Download notebook\nResearch report from my mini research internship at the Applied Artificial Intelligence Laboratory, Penn State University (August–December 2025)."
   },
   {
-    "objectID": "projets/nightshade-lightshed.html#le-principe",
-    "href": "projets/nightshade-lightshed.html#le-principe",
+    "objectID": "projets/nightshade-lightshed.html#principle",
+    "href": "projets/nightshade-lightshed.html#principle",
     "title": "Nightshade & LightShed",
-    "section": "Le principe",
-    "text": "Le principe\n\nNightshade (Shan et al., IEEE S&P 2024) l’attaque. Empoisonnement « prompt-specific » des modèles texte to image. On part d’une image d’un concept attaqué C et on lui ajoute une perturbation imperceptible \\delta qui pousse ses features vers celles d’une image ancre d’un autre concept A.\nLightShed (Foerster et al., USENIX Security 2025). Un auto-encodeur apprend à reconstruire la perturbation \\delta injectée : son entropie sert de détecteur, puis on soustrait \\delta pour récupérer l’image propre.\n\n\n\n\nLes deux images de travail : C = chien (concept attaqué), A = chat (ancre vers laquelle on pousse les features)."
+    "section": "Principle",
+    "text": "Principle\n\nNightshade (Shan et al., IEEE S&P 2024) is the attack method. It performs prompt-specific poisoning of text-to-image models. Starting from an image representing a target concept C, an imperceptible perturbation \\delta is added, pushing its features toward those of a reference image representing another concept A.\nLightShed (Foerster et al., USENIX Security 2025) trains an autoencoder to reconstruct the injected perturbation \\delta. Its entropy is used as a detection signal, and \\delta is then subtracted to recover the clean image.\n\n\n\n\nThe two working images: C = dog (targeted concept), A = cat (anchor concept toward which features are pushed)."
   },
   {
     "objectID": "projets/nightshade-lightshed.html#nightshade",
     "href": "projets/nightshade-lightshed.html#nightshade",
     "title": "Nightshade & LightShed",
     "section": "Nightshade",
-    "text": "Nightshade\nLe cœur de la méthode (équations 1–2 du papier) :\n\n\\min_{\\delta}\\ \\big\\lVert F(x_t+\\delta)-F(x^{a})\\big\\rVert_2^2\n\\quad \\text{s.c.}\\ \\lVert\\delta\\rVert \\le p\n\noù F est l’extracteur de features, x_t l’image du concept attaqué, x^a l’ancre, et p le budget perceptuel sous lequel la perturbation reste invisible à l’œil.\nF joue ici le rôle de l’encodeur VAE de Stable Diffusion : peu importe sa nature précise, l’attaque consiste à faire coller les features de l’image empoisonnée à celles de l’ancre, tout en gardant l’image visuellement inchangée.\n\n\n\nÀ gauche : image originale et image empoisonnée, visuellement quasi identiques. Au centre : la perturbation δ amplifiée pour être visible (un bruit structuré pas du tout aléatoire). À droite : la similarité cosinus dans l’espace de F confirme la collision, poison/chat (≈0.95) dépasse largement chien/chat (≈0.58) et même poison/chien (≈0.73).\n\n\nL’image empoisonnée reste visuellement un chien mais ses features ont migré vers le chat. Injectée en quantité suffisante à l’entraînement d’un modèle texte to image, l’association \"chien\" → features de chien est écrasée : le modèle génère des chats sur le prompt « chien »."
+    "text": "Nightshade\nThe core of the method (Equations 1–2 in the paper):\n\n\\min_{\\delta}\\ \\big\\lVert F(x_t+\\delta)-F(x^{a})\\big\\rVert_2^2\n\\quad \\text{s.c.}\\ \\lVert\\delta\\rVert \\le p\n\nwhere F is the feature extractor, x_t is the image of the target (attacked) concept, x^a is the anchor image and p is the perceptual budget under which the perturbation remains imperceptible to a human eye.\nHere F plays the role of the Stable Diffusion VAE encoder: regardless of its exact nature, the attack aims to align the features of the poisoned image with those of the anchor while keeping the image visually unchanged.\n\n\n\nLeft: original image and poisoned image, which are visually almost identical. Center: the perturbation δ, amplified for visibility (a structured, non-random noise pattern). Right: cosine similarity in the feature space of F confirms the collision; poison/cat (≈0.95) is much higher than dog/cat (≈0.58) and even poison/dog (≈0.73).\n\n\nhe poisoned image remains visually a dog, but its features have migrated toward the cat. When injected in sufficient quantity during the training of a text-to-image model, the association “dog” / dog features is overwritten : the model begins to generate cats in response to the prompt “dog”"
   },
   {
     "objectID": "projets/nightshade-lightshed.html#lightshed",
     "href": "projets/nightshade-lightshed.html#lightshed",
     "title": "Nightshade & LightShed",
     "section": "LightShed",
-    "text": "LightShed\nHypothèse importante du papier : l’attaquant a accès à l’outil de protection donc peut fabriquer des paires (image propre, image empoisonnée) et entraîner un détecteur sur l’empreinte de \\delta.\nLe pipeline :\n\nDétection par entropie : un auto-encodeur apprend à reconstruire \\delta à partir d’une image suspecte. Sur une image propre il ne reconstruit presque rien mais sur une image empoisonnée il reconstruit l’empreinte de la perturbation. L’entropie de cette reconstruction sépare nettement les deux classes (TPR/TNR ≈ 1 sur mon mini-dataset).\nNettoyage par soustraction : image propre ≈ image empoisonnée − \\delta reconstruite.\n\n\n\n\nSur un crop empoisonné : image de référence propre, image empoisonnée (SSIM=0.595 par rapport à la référence), la perturbation δ reconstruite par l’auto-encodeur (amplifiée pour visibilité), et l’image nettoyée après soustraction (SSIM remonte à 0.624 — un rapprochement net de la référence)."
+    "text": "LightShed\nA key assumption of the paper is that the attacker has access to the defense tool and can therefore construct (clean image, poisoned image) pairs to train a detector on the fingerprint of \\delta.\nThe pipeline is as follows:\n\nEntropy-based detection: an autoencoder is trained to reconstruct \\delta from a suspicious image. On clean images, it reconstructs almost nothing, whereas on poisoned images it successfully recovers the perturbation’s fingerprint. The entropy of this reconstruction clearly separates the two classes (TPR/TNR ≈ 1 on my small dataset).\nDenoising by subtraction: clean image ≈ poisoned image − reconstructed \\delta.\n\n\n\n\nOn a poisoned crop: clean reference image, poisoned image (SSIM = 0.595 with respect to the reference), the perturbation δ reconstructed by the autoencoder (amplified for visibility), and the cleaned image after subtraction (SSIM increases to 0.624; a clear improvement toward the reference)."
   },
   {
     "objectID": "projets/prior-networks.html",
