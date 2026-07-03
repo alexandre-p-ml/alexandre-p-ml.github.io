@@ -72,30 +72,9 @@
   {
     "objectID": "projets/dicom-3d.html",
     "href": "projets/dicom-3d.html",
-    "title": "DICOM → 3D",
+    "title": "DICOM to 3D",
     "section": "",
-    "text": "📥 Télécharger la visualisation"
-  },
-  {
-    "objectID": "projets/dicom-3d.html#visualisation-interactive",
-    "href": "projets/dicom-3d.html#visualisation-interactive",
-    "title": "DICOM → 3D",
-    "section": "",
-    "text": "📥 Télécharger la visualisation"
-  },
-  {
-    "objectID": "projets/dicom-3d.html#données-source",
-    "href": "projets/dicom-3d.html#données-source",
-    "title": "DICOM → 3D",
-    "section": "Données source",
-    "text": "Données source\n\n\n\n\n\n\nVue sagittale — colonne lombaire complète.\n\n\n\n\n\n\n\nVue axiale — coupe vertébrale avec annotation."
-  },
-  {
-    "objectID": "projets/dicom-3d.html#d",
-    "href": "projets/dicom-3d.html#d",
-    "title": "DICOM → 3D",
-    "section": "D",
-    "text": "D"
+    "text": "As part of my internship at the IMT Mines Albi incubator, I joined the R&D team of an early-stage startup where I worked on adapting state-of-the-art 3D rendering techniques such as Gaussian Splatting to medical imaging modalities including X-rays, MRI, and ultrasound. Due to confidentiality constraints I cannot disclose the technical details of the project but the material below provides an overview of the first results obtained.\n\n\nA 3D mesh of the lumbar vertebrae reconstructed from a small set of MRI scans.\n\n\n\n\n\n\nSagittal view of the complete lumbar spine\n\n\n\n\n\n\n\nAxial slice with vertebral annotation"
   },
   {
     "objectID": "index.html",
