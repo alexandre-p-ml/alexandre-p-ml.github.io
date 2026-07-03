@@ -39,14 +39,7 @@
     "href": "projets/parkinson.html",
     "title": "UPDRS Score Prediction in Parkinson’s Disease",
     "section": "",
-    "text": "Data challenge ENS sur la prédiction du score moteur UPDRS chez des patients parkinsoniens. Pipeline itéré de RMSE 11 → 8.9, organisé autour d’un ensemble multi-modèles (LightGBM + XGBoost + CatBoost) et d’une régression ridge en méta-modèle."
-  },
-  {
-    "objectID": "projets/parkinson.html#résumé",
-    "href": "projets/parkinson.html#résumé",
-    "title": "UPDRS Score Prediction in Parkinson’s Disease",
-    "section": "",
-    "text": "Data challenge ENS sur la prédiction du score moteur UPDRS chez des patients parkinsoniens. Pipeline itéré de RMSE 11 → 8.9, organisé autour d’un ensemble multi-modèles (LightGBM + XGBoost + CatBoost) et d’une régression ridge en méta-modèle."
+    "text": "-soon-"
   },
   {
     "objectID": "projets/parkinson.html#téléchargements",
@@ -54,20 +47,6 @@
     "title": "UPDRS Score Prediction in Parkinson’s Disease",
     "section": "Téléchargements",
     "text": "Téléchargements\n📓 Notebook complet"
-  },
-  {
-    "objectID": "projets/parkinson.html#contributions-principales",
-    "href": "projets/parkinson.html#contributions-principales",
-    "title": "UPDRS Score Prediction in Parkinson’s Disease",
-    "section": "Contributions principales",
-    "text": "Contributions principales\n\nModèle auxiliaire d’imputation off-medication. Un LightGBM séparé prédit les scores manquants en condition OFF à partir des autres features ; ses prédictions sont injectées comme features dans le modèle principal.\nAgrégats globaux par patient. Moyennes, variances et tendances temporelles calculées sur la trajectoire complète de chaque patient (et non sur la seule observation courante).\nCorrection pharmacocinétique des scores ON. Modélisation simple de la demi-vie de la levodopa pour ajuster le temps écoulé depuis la dernière prise.\nValidation par GroupKFold patient. Aucun patient ne se retrouve simultanément en train et en validation, évitant la fuite par identité."
-  },
-  {
-    "objectID": "projets/parkinson.html#stacking",
-    "href": "projets/parkinson.html#stacking",
-    "title": "UPDRS Score Prediction in Parkinson’s Disease",
-    "section": "Stacking",
-    "text": "Stacking\n\n\\hat{y}_{\\text{final}} = \\mathrm{Ridge}\\big(\n\\hat{y}_{\\text{LGBM}}, \\hat{y}_{\\text{XGB}}, \\hat{y}_{\\text{Cat}}, \\boldsymbol{x}_{\\text{meta}}\n\\big)\n\noù \\boldsymbol{x}_{\\text{meta}} contient les agrégats patient et l’écart à la moyenne population.\n\n\n\n\n\n\nNoteInférence autorégressive : abandonnée\n\n\n\nJ’ai testé une inférence autorégressive (le score prédit à t devient feature à t+1), théoriquement séduisante mais empiriquement contre-productive : accumulation des erreurs sur les longues séquences, RMSE dégradée de ~0.3."
   },
   {
     "objectID": "projets/dicom-3d.html",
