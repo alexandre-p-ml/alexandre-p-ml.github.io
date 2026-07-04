@@ -43,3 +43,9 @@ img.about-image {
   color: #6c757d;
   margin-bottom: 0.4em;
 }
+
+/* Knowledge Matrix — tableaux */
+.knowledge-table table {
+  font-size: 0.88em;
+  width: 100%;
+}

@@ -56,25 +56,32 @@
     "text": "As part of my internship at the IMT Mines Albi incubator, I joined the R&D team of an early-stage startup where I worked on adapting state-of-the-art 3D rendering techniques such as Gaussian Splatting to medical imaging modalities including X-rays, MRI, and ultrasound. Due to confidentiality constraints I cannot disclose the technical details of the project but the material below provides an overview of the first results obtained.\n\n\nA 3D mesh of the lumbar vertebrae reconstructed from a small set of MRI scans.\n\n\n\n\n\n\nSagittal view of the complete lumbar spine\n\n\n\n\n\n\n\nAxial slice with vertebral annotation"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Alexandre Pottecher",
+    "objectID": "knowledge.html",
+    "href": "knowledge.html",
+    "title": "Knowledge Matrix",
     "section": "",
-    "text": "I am an engineering student with a strong interest in computer vision for medical imaging, probabilistic and generative deep learning, and the mathematical foundations of machine learning algorithms.\nThis portfolio brings together my projects, including Jupyter notebooks containing code implementations and PDF documents presenting mathematical derivations and analyses."
+    "text": "Topic\nSources\nApplied in\n\n\n\n\nRiemann & Lebesgue integration\nL3 Integration I/II, Putnam prep\nMarginalization, Dirichlet distribution\n\n\nLinear algebra\nClasses, Gourdon\n—\n\n\nDifferential calculus\nGourdon, Cassini, L3 Topology II & Integration II\n3DGS mathematical writeup\n\n\nProbability & statistics\nL3/M1 Statistics, Mines courses\nANOVA, time series models\n\n\nBayesian deep learning\nCNAM RCP211\nDirichlet Prior Networks\n\n\nDifferential equations\nL3, classes\nNeuralODE (attempted), Flow models (CNAM)\n\n\nTopology\nClasses, L3\nNormalization\n\n\nAlgebraic topology\n—\n—\n\n\nGraphs & automata\nClasses, Gourdon, Ellipses\nReinforcement learning\n\n\nAlgorithmic complexity\nBécirspahić LLG, Cormen\n—\n\n\nDynamic programming & memoization\nBécirspahić LLG, Cormen\n—"
   },
   {
-    "objectID": "index.html#about-me",
-    "href": "index.html#about-me",
-    "title": "Alexandre Pottecher",
+    "objectID": "knowledge.html#mathematics",
+    "href": "knowledge.html#mathematics",
+    "title": "Knowledge Matrix",
     "section": "",
-    "text": "I am an engineering student with a strong interest in computer vision for medical imaging, probabilistic and generative deep learning, and the mathematical foundations of machine learning algorithms.\nThis portfolio brings together my projects, including Jupyter notebooks containing code implementations and PDF documents presenting mathematical derivations and analyses."
+    "text": "Topic\nSources\nApplied in\n\n\n\n\nRiemann & Lebesgue integration\nL3 Integration I/II, Putnam prep\nMarginalization, Dirichlet distribution\n\n\nLinear algebra\nClasses, Gourdon\n—\n\n\nDifferential calculus\nGourdon, Cassini, L3 Topology II & Integration II\n3DGS mathematical writeup\n\n\nProbability & statistics\nL3/M1 Statistics, Mines courses\nANOVA, time series models\n\n\nBayesian deep learning\nCNAM RCP211\nDirichlet Prior Networks\n\n\nDifferential equations\nL3, classes\nNeuralODE (attempted), Flow models (CNAM)\n\n\nTopology\nClasses, L3\nNormalization\n\n\nAlgebraic topology\n—\n—\n\n\nGraphs & automata\nClasses, Gourdon, Ellipses\nReinforcement learning\n\n\nAlgorithmic complexity\nBécirspahić LLG, Cormen\n—\n\n\nDynamic programming & memoization\nBécirspahić LLG, Cormen\n—"
   },
   {
-    "objectID": "index.html#projects",
-    "href": "index.html#projects",
-    "title": "Alexandre Pottecher",
-    "section": "Projects",
-    "text": "Projects\n\nDICOM to 3D — Interactive 3D Reconstruction and Visualization for Medical Imaging’\n\n\n3D Gaussian Splatting — A Rigorous Derivation of Backpropagation\n\n\nDirichlet Prior Networks & Mathematics\n\n\nNightshade & LightShed — Data poisoning\n\n\nAbdominal CT Segmentation — Challenge ENS Data\n\n\nUPDRS Score Prediction — Challenge ENS Data"
+    "objectID": "knowledge.html#computer-vision",
+    "href": "knowledge.html#computer-vision",
+    "title": "Knowledge Matrix",
+    "section": "Computer Vision",
+    "text": "Computer Vision\n\n\n\n\n\n\n\n\nTopic\nSources\nApplied in\n\n\n\n\nGaussian Splatting\nPapers (3DGS)\nCT scan-to-3D reconstruction\n\n\n3D rendering & mesh\nPapers (DreamGaussian et al.)\n3D generation pipelines\n\n\nComputed tomography\nENS Data Challenge (HU windowing)\nAbdominal CT segmentation (Raidium)"
+  },
+  {
+    "objectID": "knowledge.html#machine-learning",
+    "href": "knowledge.html#machine-learning",
+    "title": "Knowledge Matrix",
+    "section": "Machine Learning",
+    "text": "Machine Learning\n\n\n\n\n\n\n\n\nTopic\nSources\nApplied in\n\n\n\n\nPerceptron\nCNAM RCP208/RCP209\n—\n\n\nBackpropagation\nCNAM RCP208/209, O’Reilly DL with Keras/TensorFlow\nTransformer fine-tuning, Prior Networks, 3DGS, ENS Data\n\n\nConvolutional models\nCNAM RCP208, O’Reilly\nTIPE, transformer fine-tuning\n\n\nGenerative models\nDiffusion models Stanford CME296, O’Reilly Generative DL, CNAM\n—\n\n\nAdversarial data poisoning\nNightshade / LightShed papers\nResearch project (A. Lazska)\n\n\nGANs\nCNAM RCP211, O’Reilly DL with Keras/TensorFlow\nCT-scan generation (ENS Data)\n\n\nVAE\nCNAM RCP211, O’Reilly DL with Keras/TensorFlow\n—\n\n\nLLMs\nPenn State course, Stanford Online\n—\n\n\nAttention mechanism\n—\nRNN for ENS Data (attempted)\n\n\nRNNs\nMines course\n—\n\n\nReinforcement learning\nO’Reilly DL with Keras/TensorFlow, CNAM\n—"
   },
   {
     "objectID": "files/raidium_ens_data_challenge.html",
@@ -166,6 +173,27 @@
     "title": "Raidium Challenge — Segmentation CT abdominale",
     "section": "12. Inférence test SANS masquage validity",
     "text": "12. Inférence test SANS masquage validity\n\nclass TestDataset(Dataset):\n    def __init__(self, ids):\n        self.ids = np.asarray(ids)\n    def __len__(self): return len(self.ids)\n    def __getitem__(self, idx):\n        i = int(self.ids[idx])\n        img = (test_images[i].astype(np.float32) / 255.0 - DATASET_MEAN) / DATASET_STD\n        return {'image': torch.from_numpy(img).unsqueeze(0).float(), 'image_id': i}\n\ntest_loader = DataLoader(TestDataset(np.arange(len(test_images))),\n                         batch_size=BATCH_SIZE, shuffle=False,\n                         num_workers=NUM_WORKERS, pin_memory=True)\npredictions = np.zeros((len(test_images), IMG_SIZE, IMG_SIZE), dtype=np.uint8)\n\n# No validity masking on test: none is available, and the platform metric is\n# unmasked, so we take a plain argmax over all classes (consistent with val M4).\nwith torch.no_grad():\n    for batch in test_loader:\n        img = batch['image'].to(DEVICE, non_blocking=True)\n        ids = batch['image_id'].numpy()\n        with torch.amp.autocast(AMP_DEVICE):\n            sm = inference_fn(img)\n        pred = sm.argmax(1).cpu().numpy().astype(np.uint8)\n        for k, i in enumerate(ids): predictions[i] = pred[k]\n\nprint(f'Predictions test : {predictions.shape}, classes uniques : {np.unique(predictions).size}')\n\n\ntest_files = [f'{i}.png' for i in range(len(test_images))]\n\n# Official submission format (integer columns).\npath_A = str(SUBMIT_PATH).replace('.csv', f'_{submission_label}_officiel.csv')\npd.DataFrame(predictions.reshape((predictions.shape[0], -1))).T.to_csv(path_A)\n\n# Human-readable variant (named pixel rows / file columns), for inspection.\npath_B = str(SUBMIT_PATH).replace('.csv', f'_{submission_label}_named.csv')\npd.DataFrame(\n    predictions.reshape((predictions.shape[0], -1)).T,\n    index   = [f'Pixel {k}' for k in range(IMG_SIZE*IMG_SIZE)],\n    columns = test_files,\n).to_csv(path_B)\n\ndef read_image_from_csv(path, i):\n    df = pd.read_csv(path, index_col=0, header=0).T\n    try:    return df.iloc[i].values.reshape((IMG_SIZE, IMG_SIZE))\n    except: return df.loc[i].values.reshape((IMG_SIZE, IMG_SIZE))\n\n# some issus with submission website : re-read the CSV and confirm a couple of images match exactly.\nfor name, p in [('officiel', path_A), ('named', path_B)]:\n    chk = pd.read_csv(p, index_col=0)\n    print(f'[{name}] shape={chk.shape}')\n    for i in [0, len(test_files)-1]:\n        assert np.array_equal(read_image_from_csv(p, i), predictions[i])\nprint(f'\\nSoumissions generated with label \"{submission_label}\" dans {OUTPUT_DIR}.')"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Alexandre Pottecher",
+    "section": "",
+    "text": "I am an engineering student with a strong interest in computer vision for medical imaging, probabilistic and generative deep learning, and the mathematical foundations of machine learning algorithms.\nThis portfolio brings together my projects, including Jupyter notebooks containing code implementations and PDF documents presenting mathematical derivations and analyses."
+  },
+  {
+    "objectID": "index.html#about-me",
+    "href": "index.html#about-me",
+    "title": "Alexandre Pottecher",
+    "section": "",
+    "text": "I am an engineering student with a strong interest in computer vision for medical imaging, probabilistic and generative deep learning, and the mathematical foundations of machine learning algorithms.\nThis portfolio brings together my projects, including Jupyter notebooks containing code implementations and PDF documents presenting mathematical derivations and analyses."
+  },
+  {
+    "objectID": "index.html#projects",
+    "href": "index.html#projects",
+    "title": "Alexandre Pottecher",
+    "section": "Projects",
+    "text": "Projects\n\nDICOM to 3D — Interactive 3D Reconstruction and Visualization for Medical Imaging’\n\n\n3D Gaussian Splatting — A Rigorous Derivation of Backpropagation\n\n\nDirichlet Prior Networks & Mathematics\n\n\nNightshade & LightShed — Data poisoning\n\n\nAbdominal CT Segmentation — Challenge ENS Data\n\n\nUPDRS Score Prediction — Challenge ENS Data"
   },
   {
     "objectID": "projets/3dgs.html",
