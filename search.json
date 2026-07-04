@@ -56,29 +56,29 @@
     "text": "As part of my internship at the IMT Mines Albi incubator, I joined the R&D team of an early-stage startup where I worked on adapting state-of-the-art 3D rendering techniques such as Gaussian Splatting to medical imaging modalities including X-rays, MRI, and ultrasound. Due to confidentiality constraints I cannot disclose the technical details of the project but the material below provides an overview of the first results obtained.\n\n\nA 3D mesh of the lumbar vertebrae reconstructed from a small set of MRI scans.\n\n\n\n\n\n\nSagittal view of the complete lumbar spine\n\n\n\n\n\n\n\nAxial slice with vertebral annotation"
   },
   {
-    "objectID": "knowledge.html",
-    "href": "knowledge.html",
+    "objectID": "knowledge/knowledge.html",
+    "href": "knowledge/knowledge.html",
     "title": "Knowledge Matrix",
     "section": "",
     "text": "Topic\nSources\nApplied in\n\n\n\n\nRiemann & Lebesgue integration\nL3 Integration I/II, Putnam prep\nMarginalization, Dirichlet distribution\n\n\nLinear algebra\nClasses, Gourdon\n—\n\n\nDifferential calculus\nGourdon, Cassini, L3 Topology II & Integration II\n3DGS mathematical writeup\n\n\nProbability & statistics\nL3/M1 Statistics, Mines courses\nANOVA, time series models\n\n\nBayesian deep learning\nCNAM RCP211\nDirichlet Prior Networks\n\n\nDifferential equations\nL3, classes\nNeuralODE (attempted), Flow models (CNAM)\n\n\nTopology\nClasses, L3\nNormalization\n\n\nAlgebraic topology\n—\n—\n\n\nGraphs & automata\nClasses, Gourdon, Ellipses\nReinforcement learning\n\n\nAlgorithmic complexity\nBécirspahić LLG, Cormen\n—\n\n\nDynamic programming & memoization\nBécirspahić LLG, Cormen\n—"
   },
   {
-    "objectID": "knowledge.html#mathematics",
-    "href": "knowledge.html#mathematics",
+    "objectID": "knowledge/knowledge.html#mathematics",
+    "href": "knowledge/knowledge.html#mathematics",
     "title": "Knowledge Matrix",
     "section": "",
     "text": "Topic\nSources\nApplied in\n\n\n\n\nRiemann & Lebesgue integration\nL3 Integration I/II, Putnam prep\nMarginalization, Dirichlet distribution\n\n\nLinear algebra\nClasses, Gourdon\n—\n\n\nDifferential calculus\nGourdon, Cassini, L3 Topology II & Integration II\n3DGS mathematical writeup\n\n\nProbability & statistics\nL3/M1 Statistics, Mines courses\nANOVA, time series models\n\n\nBayesian deep learning\nCNAM RCP211\nDirichlet Prior Networks\n\n\nDifferential equations\nL3, classes\nNeuralODE (attempted), Flow models (CNAM)\n\n\nTopology\nClasses, L3\nNormalization\n\n\nAlgebraic topology\n—\n—\n\n\nGraphs & automata\nClasses, Gourdon, Ellipses\nReinforcement learning\n\n\nAlgorithmic complexity\nBécirspahić LLG, Cormen\n—\n\n\nDynamic programming & memoization\nBécirspahić LLG, Cormen\n—"
   },
   {
-    "objectID": "knowledge.html#computer-vision",
-    "href": "knowledge.html#computer-vision",
+    "objectID": "knowledge/knowledge.html#computer-vision",
+    "href": "knowledge/knowledge.html#computer-vision",
     "title": "Knowledge Matrix",
     "section": "Computer Vision",
     "text": "Computer Vision\n\n\n\n\n\n\n\n\nTopic\nSources\nApplied in\n\n\n\n\nGaussian Splatting\nPapers (3DGS)\nCT scan-to-3D reconstruction\n\n\n3D rendering & mesh\nPapers (DreamGaussian et al.)\n3D generation pipelines\n\n\nComputed tomography\nENS Data Challenge (HU windowing)\nAbdominal CT segmentation (Raidium)"
   },
   {
-    "objectID": "knowledge.html#machine-learning",
-    "href": "knowledge.html#machine-learning",
+    "objectID": "knowledge/knowledge.html#machine-learning",
+    "href": "knowledge/knowledge.html#machine-learning",
     "title": "Knowledge Matrix",
     "section": "Machine Learning",
     "text": "Machine Learning\n\n\n\n\n\n\n\n\nTopic\nSources\nApplied in\n\n\n\n\nPerceptron\nCNAM RCP208/RCP209\n—\n\n\nBackpropagation\nCNAM RCP208/209, O’Reilly DL with Keras/TensorFlow\nTransformer fine-tuning, Prior Networks, 3DGS, ENS Data\n\n\nConvolutional models\nCNAM RCP208, O’Reilly\nTIPE, transformer fine-tuning\n\n\nGenerative models\nDiffusion models Stanford CME296, O’Reilly Generative DL, CNAM\n—\n\n\nAdversarial data poisoning\nNightshade / LightShed papers\nResearch project (A. Lazska)\n\n\nGANs\nCNAM RCP211, O’Reilly DL with Keras/TensorFlow\nCT-scan generation (ENS Data)\n\n\nVAE\nCNAM RCP211, O’Reilly DL with Keras/TensorFlow\n—\n\n\nLLMs\nPenn State course, Stanford Online\n—\n\n\nAttention mechanism\n—\nRNN for ENS Data (attempted)\n\n\nRNNs\nMines course\n—\n\n\nReinforcement learning\nO’Reilly DL with Keras/TensorFlow, CNAM\n—"
