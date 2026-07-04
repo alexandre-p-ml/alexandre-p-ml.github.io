@@ -60,14 +60,14 @@
     "href": "knowledge/knowledge.html",
     "title": "Knowledge Matrix",
     "section": "",
-    "text": "Topic\nSources\nApplied in\n\n\n\n\nRiemann & Lebesgue integration\nL3 Integration I/II, Putnam prep\nMarginalization, Dirichlet distribution\n\n\nLinear algebra\nClasses, Gourdon\n—\n\n\nDifferential calculus\nGourdon, Cassini, L3 Topology II & Integration II\n3DGS mathematical writeup\n\n\nProbability & statistics\nL3/M1 Statistics, Mines school courses\nANOVA, time series models\n\n\nBayesian deep learning\nCNAM RCP211\nDirichlet Prior Networks\n\n\nDifferential equations\nL3, classes\nNeuralODE (attempted), Flow models (CNAM)\n\n\nTopology\nClasses, L3\nNormalization\n\n\nAlgebraic topology\n—\n—\n\n\nGraphs & automata\nClasses, Gourdon, Ellipses\nReinforcement learning\n\n\nAlgorithmic complexity\nJean-Pierre Becirspahic, Cormen\n—\n\n\nDynamic programming & memoization\nJean-Pierre Becirspahic, Cormen\n—"
+    "text": "-WORK IN PROGRESS-"
   },
   {
     "objectID": "knowledge/knowledge.html#mathematics",
     "href": "knowledge/knowledge.html#mathematics",
     "title": "Knowledge Matrix",
-    "section": "",
-    "text": "Topic\nSources\nApplied in\n\n\n\n\nRiemann & Lebesgue integration\nL3 Integration I/II, Putnam prep\nMarginalization, Dirichlet distribution\n\n\nLinear algebra\nClasses, Gourdon\n—\n\n\nDifferential calculus\nGourdon, Cassini, L3 Topology II & Integration II\n3DGS mathematical writeup\n\n\nProbability & statistics\nL3/M1 Statistics, Mines school courses\nANOVA, time series models\n\n\nBayesian deep learning\nCNAM RCP211\nDirichlet Prior Networks\n\n\nDifferential equations\nL3, classes\nNeuralODE (attempted), Flow models (CNAM)\n\n\nTopology\nClasses, L3\nNormalization\n\n\nAlgebraic topology\n—\n—\n\n\nGraphs & automata\nClasses, Gourdon, Ellipses\nReinforcement learning\n\n\nAlgorithmic complexity\nJean-Pierre Becirspahic, Cormen\n—\n\n\nDynamic programming & memoization\nJean-Pierre Becirspahic, Cormen\n—"
+    "section": "Mathematics",
+    "text": "Mathematics\n\n\n\n\n\n\n\n\nTopic\nSources\nApplied in\n\n\n\n\nRiemann & Lebesgue integration\nL3 Integration I/II, Putnam prep\nMarginalization, Dirichlet distribution\n\n\nLinear algebra\nClasses, Gourdon\n—\n\n\nDifferential calculus\nGourdon, Cassini, L3 Topology II & Integration II\n3DGS mathematical writeup\n\n\nProbability & statistics\nL3/M1 Statistics, Mines school courses\nANOVA, time series models\n\n\nBayesian deep learning\nCNAM RCP211\nDirichlet Prior Networks\n\n\nDifferential equations\nL3, classes\nNeuralODE (attempted), Flow models (CNAM)\n\n\nTopology\nClasses, L3\nNormalization\n\n\nAlgebraic topology\n—\n—\n\n\nGraphs & automata\nClasses, Gourdon, Ellipses\nReinforcement learning\n\n\nAlgorithmic complexity\nJean-Pierre Becirspahic, Cormen\n—\n\n\nDynamic programming & memoization\nJean-Pierre Becirspahic, Cormen\n—"
   },
   {
     "objectID": "knowledge/knowledge.html#computer-vision",
