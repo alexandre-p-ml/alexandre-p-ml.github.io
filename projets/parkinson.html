@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-01-01">
 
-<title>UPDRS Score Prediction in Parkinson’s Disease – Alexandre Pottecher</title>
+<title>Parkinson’s UPDRS Prediction – Alexandre Pottecher</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -107,6 +107,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -190,7 +233,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#téléchargements" id="toc-téléchargements" class="nav-link active" data-scroll-target="#téléchargements">Téléchargements</a></li>
+  <li><a href="#download-code" id="toc-download-code" class="nav-link active" data-scroll-target="#download-code">Download code</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#approach-results" id="toc-approach-results" class="nav-link" data-scroll-target="#approach-results">Approach &amp; Results</a></li>
+  <li><a href="#focus-sigmoid-trajectory-modeling" id="toc-focus-sigmoid-trajectory-modeling" class="nav-link" data-scroll-target="#focus-sigmoid-trajectory-modeling">Focus: Sigmoid Trajectory Modeling</a></li>
+  <li><a href="#negative-results-fails" id="toc-negative-results-fails" class="nav-link" data-scroll-target="#negative-results-fails">Negative Results / Fails</a>
+  <ul class="collapse">
+  <li><a href="#lessons-learned" id="toc-lessons-learned" class="nav-link" data-scroll-target="#lessons-learned">Lessons Learned</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -199,8 +249,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">UPDRS Score Prediction in Parkinson’s Disease</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-<p class="subtitle lead">Challenge ENS Data - Paris Brain Institute</p>
+<div class="quarto-title-block"><div><h1 class="title">Parkinson’s UPDRS Prediction</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<p class="subtitle lead">Challenge ENS Data — Paris Brain Institute</p>
 </div>
 
 
@@ -223,14 +273,179 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>-soon-</p>
-<section id="téléchargements" class="level2">
-<h2 class="anchored" data-anchor-id="téléchargements">Téléchargements</h2>
-<p><a class="download-btn" href="../files/parkinson-pipeline.ipynb" download="">📓 Notebook complet</a></p>
+<section id="download-code" class="level2">
+<h2 class="anchored" data-anchor-id="download-code">Download code</h2>
+<p><a class="download-btn" href="../files/parkinson_ens_data_challenge.ipynb" download=""> 📓 Notebook</a></p>
+<hr>
+</section>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>ENS Data challenge from the Paris Brain Institute: predict the theoretical <em>off</em> UPDRS motor score of Parkinson’s patients from longitudinal clinical visits. The target is a continuous variable ranging from 0 to 109.5 with high dispersion (standard deviation 16.5), predicted from tabular features across 55,603 observations.</p>
+<p>The dataset has two defining difficulties:</p>
+<ul>
+<li>High missingness on the most informative columns: the measured <em>off</em> score is missing in 42% of cases, <em>ledd</em> in 37%, and <em>on</em> in 30%. Imputing <em>ledd</em> by median or interpolation would amount to inventing a treatment that does not exist, so the model must handle NaNs natively.</li>
+<li>Strong but incomplete signal: when the measured <em>off</em> score is present, its correlation with the target is r = 0.885 — the single strongest predictor in the dataset.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/parkinson-dataset.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Left: availability of the measured <em>off</em> score (mean 4.6 measurements per patient). Right: measured <em>off</em> vs target, confirming the r = 0.885 correlation.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/parkinson-corr.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Feature correlation matrix. The measured <em>off</em> score dominates (r = 0.89), followed by <em>on</em> (0.69) and time since diagnosis (0.54).</figcaption>
+</figure>
+</div>
+<p>This missingness profile motivated gradient boosting over linear models or SVMs: boosting handles NaNs natively and regularizes more finely, avoiding the imputation bias that other approaches would require.</p>
+<hr>
+</section>
+<section id="approach-results" class="level2">
+<h2 class="anchored" data-anchor-id="approach-results">Approach &amp; Results</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>Description</th>
+<th style="text-align: right;">RMSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Baseline LightGBM</td>
+<td>Raw features only</td>
+<td style="text-align: right;">~53</td>
+</tr>
+<tr class="even">
+<td>+ KMeans clustering (k=3)</td>
+<td>One expert model per patient group</td>
+<td style="text-align: right;">~49</td>
+</tr>
+<tr class="odd">
+<td>+ Sigmoid fit (L, k, t₀, b features)</td>
+<td>Individual trajectory modeling</td>
+<td style="text-align: right;">~14</td>
+</tr>
+<tr class="even">
+<td>− Remove clustering</td>
+<td>Single model, more data per model</td>
+<td style="text-align: right;">14 → 12.8</td>
+</tr>
+<tr class="odd">
+<td>+ Lag features &amp; expanding means</td>
+<td>Causal memory of previous visits</td>
+<td style="text-align: right;">~12</td>
+</tr>
+<tr class="even">
+<td>+ Ensemble LightGBM+XGBoost+CatBoost</td>
+<td>Algorithmic diversity</td>
+<td style="text-align: right;"><strong>~11.5</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The largest single gain came from the sigmoid trajectory modeling (detailed below), which took RMSE from ~49 to ~14. Beyond that, I engineered causal temporal features that respect the sequential structure of patient follow-up: sequential position within the visit history, lag features (off_lag1, off_lag2, on_lag1, ledd_lag1), causal expanding means, and local regression slopes over the last three measured <em>off</em> scores. All are strictly causal to avoid temporal leakage.</p>
+<p>The final model is a three-way ensemble combined by Ridge stacking on out-of-fold predictions:</p>
+<p><span class="math display">
+\hat{y}_{\text{final}} = \alpha_1 \hat{y}_{\text{LGBM}} + \alpha_2 \hat{y}_{\text{XGB}} + \alpha_3 \hat{y}_{\text{CAT}} + \beta_0
+</span></p>
+<p>LightGBM, XGBoost and CatBoost are all gradient boosting methods but use different learning algorithms (leaf-wise vs level-wise vs ordered boosting). Their slightly decorrelated errors (<span class="math inline">\rho &lt; 1</span>) make the blend’s variance lower than that of any individual model. Validation used <strong>GroupKFold</strong> so that all observations from a given patient fall entirely within a single fold, preventing identity leakage:</p>
+<p><span class="math display">
+\forall p \in \text{patients}, \quad \{o \mid \text{patient}(o) = p\} \subset \text{train}_k \text{ ou } \subset \text{val}_k
+</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/parkinson-models.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Model analysis. Left: RMSE per fold and per model — all three are remarkably close. Center: prediction correlation between models (all &gt; 0.997). Right: top 15 LightGBM features by gain, dominated by age_at_diagnosis and the sigmoid parameters (sig_L, sig_b, sig_t0, sig_k).</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+<section id="focus-sigmoid-trajectory-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="focus-sigmoid-trajectory-modeling">Focus: Sigmoid Trajectory Modeling</h2>
+<p>The disease progression of the theoretical <em>off</em> score biologically follows an S-shaped curve. I model each patient’s trajectory as a four-parameter sigmoid of age:</p>
+<p><span class="math display">
+S(\text{age}) = \frac{L}{1 + e^{-k(\text{age} - t_0)}} + b
+</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">L</span></td>
+<td>Total progression amplitude (plateau − baseline)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">k</span></td>
+<td>Progression speed (slope at inflection)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">t_0</span></td>
+<td>Inflection age — moment of maximal progression</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">b</span></td>
+<td>Baseline score at disease onset</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/parkinson-sigmoid-params.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption>Visualization of the four parameters: baseline <span class="math inline">b</span>, amplitude <span class="math inline">L</span>, inflection age <span class="math inline">t_0</span>, and the maximal slope <span class="math inline">kL/4</span> at the inflection point.</figcaption>
+</figure>
+</div>
+<p>The fitted parameters <span class="math inline">(L, k, t_0, b)</span> become features fed to the boosting models. A crucial design choice: I fit the sigmoid <strong>only on measured <em>off</em> scores</strong>, never on the target. Fitting on the target would yield near-perfect parameters in training (MAE ≈ 0.09) but collapse at test time (MAE ≈ 7.7), since the target is unavailable there — a textbook leakage trap.</p>
+<p><strong>Handling under-constrained patients.</strong> Four free parameters cannot be constrained by fewer than four measured points. Patients with fewer than four measured <em>off</em> scores fall back to the median parameters of similar patients (same cohort, mutation, and sex).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/parkinson-sigmoid-fits.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Sigmoid fit quality across representative cases, from good fits (RMSE ≈ 2.2) to poor fits (RMSE ≈ 13.4) and fallback cases with too few points.</figcaption>
+</figure>
+</div>
+<p>Fit quality distribution across 6,971 patients:</p>
+<ul>
+<li>Good fit (RMSE &lt; 3): 1,350 patients (19.4%)</li>
+<li>Medium fit (3 &lt; RMSE &lt; 12): 3,096 patients (44.4%)</li>
+<li>Poor fit (RMSE &gt; 12): 48 patients (0.7%)</li>
+<li>Fallback (no convergence): 2,477 patients (35.5%)</li>
+</ul>
+<hr>
+</section>
+<section id="negative-results-fails" class="level2">
+<h2 class="anchored" data-anchor-id="negative-results-fails">Negative Results / Fails</h2>
+<p><em>KMeans clustering into expert models</em></p>
+<p>The initial intuition was that Parkinson’s progression falls into 3–5 distinct patient profiles, so I clustered patients and trained one expert model per group. Maintaining three separate models added variance (less data per model) without reducing bias. Collapsing from three clustered models back to a single model improved RMSE (14 → 12.8).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/parkinson-clustering.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Individual trajectories and cluster means under three feature sets (static, sigmoid, all). The clusters overlap heavily and do not isolate clean progression profiles.</figcaption>
+</figure>
+</div>
+<p><em>MLP and Neural ODE</em></p>
+<p>Neither a dense network nor a Neural ODE improved the score, for structural reasons:</p>
+<ul>
+<li>With only 4–12 observations per patient, an MLP learns a population-average model rather than an individual trajectory, reaching an out-of-fold RMSE of ~13–15 where LightGBM easily reaches 3.5.</li>
+<li>A Neural ODE requires the initial state <span class="math inline">z_0</span> to integrate <span class="math inline">dz/dt = f(z, t, \theta)</span>. When the earliest measurements are missing, <span class="math inline">z_0</span> is unknown and integration diverges. The CNODE paper (Wang 2025) solves this with an RNN encoder over brain MRI — data we do not have here.</li>
+</ul>
+<section id="lessons-learned" class="level3">
+<h3 class="anchored" data-anchor-id="lessons-learned">Lessons Learned</h3>
+<p>The most important insight is that <strong>the start of the trajectory is critical</strong>. The four-parameter sigmoid needs measurements spanning all three phases of the curve — low plateau (<span class="math inline">b</span>), acceleration (<span class="math inline">k</span>, <span class="math inline">t_0</span>), high plateau (<span class="math inline">b+L</span>) — to be constrained. When the earliest measurements are missing, only the right, near-linear part of the sigmoid is observed, where curvature is weak. In that regime a slow, advanced sigmoid (small <span class="math inline">k</span>) is indistinguishable from a fast, early-plateau sigmoid (large <span class="math inline">k</span>), making the parameters unidentifiable.</p>
+<p>The parametric sigmoid ultimately gave the best result for this problem: it is well suited to the low number of observations per patient, encoding an explicit biological prior that data-hungry approaches could not recover from the data alone.</p>
 
 
 <!-- -->
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -691,17 +906,172 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "UPDRS Score Prediction in Parkinson's Disease"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Challenge ENS Data - Paris Brain Institute"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Parkinson's UPDRS Prediction"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Challenge ENS Data — Paris Brain Institute"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "Mai 2026"</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> []</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>-soon-</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Download code</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Téléchargements</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> class</span><span class="op">=</span><span class="st">"download-btn"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"../files/parkinson_ens_data_challenge.ipynb"</span><span class="ot"> download</span><span class="dt">&gt;</span> 📓 Notebook<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> class</span><span class="op">=</span><span class="st">"download-btn"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"../files/parkinson-pipeline.ipynb"</span><span class="ot"> download</span><span class="dt">&gt;</span>📓 Notebook complet<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>ENS Data challenge from the Paris Brain Institute: predict the theoretical *off*</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>UPDRS motor score of Parkinson's patients from longitudinal clinical visits.</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>The target is a continuous variable ranging from 0 to 109.5 with high dispersion</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>(standard deviation 16.5), predicted from tabular features across 55,603</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>observations.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>The dataset has two defining difficulties:</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>High missingness on the most informative columns: the measured *off* score is</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  missing in 42% of cases, *ledd* in 37%, and *on* in 30%. Imputing *ledd* by</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  median or interpolation would amount to inventing a treatment that does not</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  exist, so the model must handle NaNs natively.</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Strong but incomplete signal: when the measured *off* score is present, its</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  correlation with the target is r = 0.885 — the single strongest predictor in</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  the dataset.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="al">![Left: availability of the measured *off* score (mean 4.6 measurements per patient). Right: measured *off* vs target, confirming the r = 0.885 correlation.](../img/parkinson-dataset.png)</span>{fig-align="center" width="100%"}</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="al">![Feature correlation matrix. The measured *off* score dominates (r = 0.89), followed by *on* (0.69) and time since diagnosis (0.54).](../img/parkinson-corr.png)</span>{fig-align="center" width="70%"}</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>This missingness profile motivated gradient boosting over linear models or SVMs:</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>boosting handles NaNs natively and regularizes more finely, avoiding the</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>imputation bias that other approaches would require.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Approach &amp; Results</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Stage <span class="pp">|</span> Description <span class="pp">|</span> RMSE <span class="pp">|</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---:|</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Baseline LightGBM <span class="pp">|</span> Raw features only <span class="pp">|</span> ~53 <span class="pp">|</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> + KMeans clustering (k=3) <span class="pp">|</span> One expert model per patient group <span class="pp">|</span> ~49 <span class="pp">|</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> + Sigmoid fit (L, k, t₀, b features) <span class="pp">|</span> Individual trajectory modeling <span class="pp">|</span> ~14 <span class="pp">|</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> − Remove clustering <span class="pp">|</span> Single model, more data per model <span class="pp">|</span> 14 → 12.8 <span class="pp">|</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> + Lag features &amp; expanding means <span class="pp">|</span> Causal memory of previous visits <span class="pp">|</span> ~12 <span class="pp">|</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> + Ensemble LightGBM+XGBoost+CatBoost <span class="pp">|</span> Algorithmic diversity <span class="pp">|</span> **~11.5** <span class="pp">|</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>The largest single gain came from the sigmoid trajectory modeling (detailed</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>below), which took RMSE from ~49 to ~14. Beyond that, I engineered causal</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>temporal features that respect the sequential structure of patient follow-up:</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>sequential position within the visit history, lag features (off_lag1, off_lag2,</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>on_lag1, ledd_lag1), causal expanding means, and local regression slopes over</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>the last three measured *off* scores. All are strictly causal to avoid temporal</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>leakage.</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>The final model is a three-way ensemble combined by Ridge stacking on</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>out-of-fold predictions:</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>\hat{y}_{\text{final}} = \alpha_1 \hat{y}_{\text{LGBM}} + \alpha_2 \hat{y}_{\text{XGB}} + \alpha_3 \hat{y}_{\text{CAT}} + \beta_0</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>LightGBM, XGBoost and CatBoost are all gradient boosting methods but use</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>different learning algorithms (leaf-wise vs level-wise vs ordered boosting).</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>Their slightly decorrelated errors ($\rho &lt; 1$) make the blend's variance lower</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>than that of any individual model. Validation used **GroupKFold** so that all</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>observations from a given patient fall entirely within a single fold, preventing</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>identity leakage:</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>\forall p \in \text{patients}, \quad <span class="sc">\{</span>o \mid \text{patient}(o) = p<span class="sc">\}</span> \subset \text{train}_k \text{ ou } \subset \text{val}_k</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="al">![Model analysis. Left: RMSE per fold and per model — all three are remarkably close. Center: prediction correlation between models (all &gt; 0.997). Right: top 15 LightGBM features by gain, dominated by age_at_diagnosis and the sigmoid parameters (sig_L, sig_b, sig_t0, sig_k).](../img/parkinson-models.png)</span>{fig-align="center" width="100%"}</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Focus: Sigmoid Trajectory Modeling</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>The disease progression of the theoretical *off* score biologically follows an</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>S-shaped curve. I model each patient's trajectory as a four-parameter sigmoid</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>of age:</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>S(\text{age}) = \frac{L}{1 + e^{-k(\text{age} - t_0)}} + b</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Parameter <span class="pp">|</span> Interpretation <span class="pp">|</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $L$ <span class="pp">|</span> Total progression amplitude (plateau − baseline) <span class="pp">|</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $k$ <span class="pp">|</span> Progression speed (slope at inflection) <span class="pp">|</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $t_0$ <span class="pp">|</span> Inflection age — moment of maximal progression <span class="pp">|</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $b$ <span class="pp">|</span> Baseline score at disease onset <span class="pp">|</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="al">![Visualization of the four parameters: baseline $b$, amplitude $L$, inflection age $t_0$, and the maximal slope $kL/4$ at the inflection point.](../img/parkinson-sigmoid-params.png)</span>{fig-align="center" width="75%"}</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>The fitted parameters $(L, k, t_0, b)$ become features fed to the boosting</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>models. A crucial design choice: I fit the sigmoid **only on measured *off*</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>scores**, never on the target. Fitting on the target would yield near-perfect</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>parameters in training (MAE ≈ 0.09) but collapse at test time (MAE ≈ 7.7),</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>since the target is unavailable there — a textbook leakage trap.</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>**Handling under-constrained patients.** Four free parameters cannot be</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>constrained by fewer than four measured points. Patients with fewer than four</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>measured *off* scores fall back to the median parameters of similar patients</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>(same cohort, mutation, and sex).</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="al">![Sigmoid fit quality across representative cases, from good fits (RMSE ≈ 2.2) to poor fits (RMSE ≈ 13.4) and fallback cases with too few points.](../img/parkinson-sigmoid-fits.png)</span>{fig-align="center" width="100%"}</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>Fit quality distribution across 6,971 patients:</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Good fit (RMSE &lt; 3): 1,350 patients (19.4%)</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Medium fit (3 &lt; RMSE &lt; 12): 3,096 patients (44.4%)</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Poor fit (RMSE &gt; 12): 48 patients (0.7%)</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Fallback (no convergence): 2,477 patients (35.5%)</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="fu">## Negative Results / Fails</span></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>*KMeans clustering into expert models*</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>The initial intuition was that Parkinson's progression falls into 3–5 distinct</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>patient profiles, so I clustered patients and trained one expert model per</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>group. Maintaining three separate models added variance (less data per model)</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>without reducing bias. Collapsing from three clustered models back to a single</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>model improved RMSE (14 → 12.8).</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="al">![Individual trajectories and cluster means under three feature sets (static, sigmoid, all). The clusters overlap heavily and do not isolate clean progression profiles.](../img/parkinson-clustering.png)</span>{fig-align="center" width="100%"}</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>*MLP and Neural ODE*</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>Neither a dense network nor a Neural ODE improved the score, for structural</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>reasons:</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>With only 4–12 observations per patient, an MLP learns a population-average</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>  model rather than an individual trajectory, reaching an out-of-fold RMSE of</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>  ~13–15 where LightGBM easily reaches 3.5.</span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A Neural ODE requires the initial state $z_0$ to integrate</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>  $dz/dt = f(z, t, \theta)$. When the earliest measurements are missing, $z_0$</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>  is unknown and integration diverges. The CNODE paper (Wang 2025) solves this</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>  with an RNN encoder over brain MRI — data we do not have here.</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="fu">### Lessons Learned</span></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>The most important insight is that **the start of the trajectory is critical**.</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>The four-parameter sigmoid needs measurements spanning all three phases of the</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>curve — low plateau ($b$), acceleration ($k$, $t_0$), high plateau ($b+L$) — to</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>be constrained. When the earliest measurements are missing, only the right,</span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>near-linear part of the sigmoid is observed, where curvature is weak. In that</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>regime a slow, advanced sigmoid (small $k$) is indistinguishable from a fast,</span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>early-plateau sigmoid (large $k$), making the parameters unidentifiable.</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>The parametric sigmoid ultimately gave the best result for this problem: it is</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>well suited to the low number of observations per patient, encoding an explicit</span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>biological prior that data-hungry approaches could not recover from the data</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>alone.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
