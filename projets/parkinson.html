@@ -404,8 +404,8 @@ S(\text{age}) = \frac{L}{1 + e^{-k(\text{age} - t_0)}} + b
 <figcaption>Visualization of the four parameters: baseline <span class="math inline">b</span>, amplitude <span class="math inline">L</span>, inflection age <span class="math inline">t_0</span>, and the maximal slope <span class="math inline">kL/4</span> at the inflection point.</figcaption>
 </figure>
 </div>
-<p>The fitted parameters <span class="math inline">(L, k, t_0, b)</span> become features fed to the boosting models. A crucial design choice: I fit the sigmoid <strong>only on measured <em>off</em> scores</strong>, never on the target. Fitting on the target would yield near-perfect parameters in training (MAE ≈ 0.09) but collapse at test time (MAE ≈ 7.7) since the target is unavailable there.</p>
-<p><strong>Handling under-constrained patients.</strong> Four free parameters cannot be constrained by fewer than four measured points. Patients with fewer than four measured <em>off</em> scores fall back to the median parameters of similar patients (same cohort, mutation, and sex).</p>
+<p>The fitted parameters <span class="math inline">(L, k, t_0, b)</span> become features fed to the boosting models. A crucial design choice: I fit the sigmoid only on measured <em>off</em> scores, never on the target. Fitting on the target would yield near-perfect parameters in training (MAE ≈ 0.09) but collapse at test time (MAE ≈ 7.7) since the target is unavailable there.</p>
+<p>Handling under-constrained patients. Four free parameters cannot be constrained by fewer than four measured points. Patients with fewer than four measured <em>off</em> scores fall back to the median parameters of similar patients (same cohort, mutation, and sex).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/parkinson-sigmoid-fits.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -1010,12 +1010,12 @@ S(\text{age}) = \frac{L}{1 + e^{-k(\text{age} - t_0)}} + b
 <span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="al">![Visualization of the four parameters: baseline $b$, amplitude $L$, inflection age $t_0$, and the maximal slope $kL/4$ at the inflection point.](../img/parkinson-sigmoid-params.png)</span>{fig-align="center" width="75%"}</span>
 <span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>The fitted parameters $(L, k, t_0, b)$ become features fed to the boosting</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>models. A crucial design choice: I fit the sigmoid **only on measured *off*</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>scores**, never on the target. Fitting on the target would yield near-perfect</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>models. A crucial design choice: I fit the sigmoid only on measured *off*</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>scores, never on the target. Fitting on the target would yield near-perfect</span>
 <span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>parameters in training (MAE ≈ 0.09) but collapse at test time (MAE ≈ 7.7)</span>
 <span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>since the target is unavailable there.</span>
 <span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>**Handling under-constrained patients.** Four free parameters cannot be</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>Handling under-constrained patients. Four free parameters cannot be</span>
 <span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>constrained by fewer than four measured points. Patients with fewer than four</span>
 <span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>measured *off* scores fall back to the median parameters of similar patients</span>
 <span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>(same cohort, mutation, and sex).</span>
